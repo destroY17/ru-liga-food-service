@@ -17,6 +17,7 @@
 
     <modules>
         <module>dependency-bom</module>
+        <module>delivery-service</module>
     </modules>
 
 </project>
