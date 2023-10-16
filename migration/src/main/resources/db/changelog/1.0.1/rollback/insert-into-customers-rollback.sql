@@ -1,2 +1,0 @@
-DELETE FROM customers
-WHERE phone IN ('543-323-7890', '325-563-2341', '643-236-4536');
