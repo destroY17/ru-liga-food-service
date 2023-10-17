@@ -7,34 +7,21 @@
     <changeSet id="init tables" author="eikhe">
         <comment>Создание начальной структуры таблиц</comment>
 
-        <sqlFile path="1.0.0/create-table-couriers.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="1.0.0/create-couriers.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="1.0.0/create-customers.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="1.0.0/create-restaurants.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="1.0.0/create-restaurant-menu-items.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="1.0.0/create-orders.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="1.0.0/create-order-items.sql" relativeToChangelogFile="true"/>
+
         <rollback>
-            <sqlFile path="1.0.0/rollback/create-table-couriers-rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="1.0.0/rollback/create-order-items-rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="1.0.0/rollback/create-orders-rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="1.0.0/rollback/create-restaurant-menu-items-rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="1.0.0/rollback/create-restaurants-rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="1.0.0/rollback/create-customers-rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="1.0.0/rollback/create-couriers-rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
 
-        <sqlFile path="1.0.0/create-table-customers.sql" relativeToChangelogFile="true"/>
-        <rollback>
-            <sqlFile path="1.0.0/rollback/create-table-customers-rollback.sql" relativeToChangelogFile="true"/>
-        </rollback>
-
-        <sqlFile path="1.0.0/create-table-restaurants.sql" relativeToChangelogFile="true"/>
-        <rollback>
-            <sqlFile path="1.0.0/create-table-restaurants-rollback.sql"/>
-        </rollback>
-
-        <sqlFile path="1.0.0/create-table-restaurant-menu-items.sql" relativeToChangelogFile="true"/>
-        <rollback>
-            <sqlFile path="1.0.0/create-table-menu-items-table-rollback.sql" relativeToChangelogFile="true"/>
-        </rollback>
-
-        <sqlFile path="1.0.0/create-table-orders.sql" relativeToChangelogFile="true"/>
-        <rollback>
-            <sqlFile path="1.0.0/create-table-orders-rollback.sql" relativeToChangelogFile="true"/>
-        </rollback>
-
-        <sqlFile path="1.0.0/create-table-order-items.sql" relativeToChangelogFile="true"/>
-        <rollback>
-            <sqlFile path="1.0.0/rollback/create-table-order-items-rollback.sql" relativeToChangelogFile="true"/>
-        </rollback>
     </changeSet>
 </databaseChangeLog>
