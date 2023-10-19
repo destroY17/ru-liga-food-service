@@ -5,7 +5,7 @@ create table couriers
     id          bigint not null default nextval('couriers_seq'),
     phone       varchar(64),
     status      varchar(128),
-    coordinates jsonb,
+    coordinates varchar(128),
     constraint couriers_pk primary key (id),
     constraint couriers_phone_unique unique (phone)
 );
