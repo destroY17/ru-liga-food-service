@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuItemDto {
+public class OrderItemDto {
     private int quantity;
     @JsonProperty("menu_item_id")
     private Long menuItemId;

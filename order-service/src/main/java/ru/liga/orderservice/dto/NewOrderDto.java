@@ -14,5 +14,5 @@ public class NewOrderDto {
     @JsonProperty("restaurant_id")
     private Long restaurantId;
     @JsonProperty("menu_items")
-    private List<MenuItemDto> menuItems;
+    private List<OrderItemDto> menuItems;
 }
