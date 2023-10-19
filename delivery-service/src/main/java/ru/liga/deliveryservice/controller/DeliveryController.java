@@ -8,7 +8,6 @@ import ru.liga.deliveryservice.configuration.CaseInsensitiveEnumEditor;
 import ru.liga.deliveryservice.dto.DeliveryDto;
 import ru.liga.deliveryservice.dto.OrderActionDto;
 import ru.liga.deliveryservice.model.DeliveryStatus;
-import ru.liga.deliveryservice.model.OrderAction;
 import ru.liga.deliveryservice.service.DeliveryService;
 
 import javax.validation.Valid;
