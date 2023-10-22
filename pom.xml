@@ -22,6 +22,7 @@
         <module>notification-service</module>
         <module>order-service</module>
         <module>migration</module>
+        <module>common</module>
     </modules>
 
 </project>
