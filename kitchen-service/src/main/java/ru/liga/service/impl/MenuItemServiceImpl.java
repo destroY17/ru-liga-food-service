@@ -1,13 +1,13 @@
-package ru.liga.orderservice.service.impl;
+package ru.liga.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.liga.orderservice.dto.NewMenuItemDto;
-import ru.liga.orderservice.exception.DataNotFoundException;
-import ru.liga.orderservice.mapper.NewMenuItemMapper;
-import ru.liga.orderservice.model.RestaurantMenuItem;
-import ru.liga.orderservice.repository.MenuItemRepository;
-import ru.liga.orderservice.service.MenuItemService;
+import ru.liga.dto.NewMenuItemDto;
+import ru.liga.exception.DataNotFoundException;
+import ru.liga.mapper.NewMenuItemMapper;
+import ru.liga.model.RestaurantMenuItem;
+import ru.liga.repository.MenuItemRepository;
+import ru.liga.service.MenuItemService;
 
 import java.math.BigDecimal;
 

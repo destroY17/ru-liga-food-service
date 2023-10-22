@@ -1,10 +1,10 @@
-package ru.liga.orderservice.controller;
+package ru.liga.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.liga.orderservice.dto.NewMenuItemDto;
-import ru.liga.orderservice.model.RestaurantMenuItem;
-import ru.liga.orderservice.service.MenuItemService;
+import ru.liga.dto.NewMenuItemDto;
+import ru.liga.model.RestaurantMenuItem;
+import ru.liga.service.MenuItemService;
 
 import java.math.BigDecimal;
 

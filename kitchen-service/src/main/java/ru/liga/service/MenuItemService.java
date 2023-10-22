@@ -1,7 +1,7 @@
-package ru.liga.orderservice.service;
+package ru.liga.service;
 
-import ru.liga.orderservice.dto.NewMenuItemDto;
-import ru.liga.orderservice.model.RestaurantMenuItem;
+import ru.liga.dto.NewMenuItemDto;
+import ru.liga.model.RestaurantMenuItem;
 
 import java.math.BigDecimal;
 

@@ -1,12 +1,12 @@
-package ru.liga.orderservice.mapper;
+package ru.liga.mapper;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.liga.orderservice.dto.NewMenuItemDto;
-import ru.liga.orderservice.exception.DataNotFoundException;
-import ru.liga.orderservice.model.Restaurant;
-import ru.liga.orderservice.model.RestaurantMenuItem;
-import ru.liga.orderservice.repository.RestaurantRepository;
+import ru.liga.dto.NewMenuItemDto;
+import ru.liga.exception.DataNotFoundException;
+import ru.liga.model.Restaurant;
+import ru.liga.model.RestaurantMenuItem;
+import ru.liga.repository.RestaurantRepository;
 
 @Component
 @AllArgsConstructor
