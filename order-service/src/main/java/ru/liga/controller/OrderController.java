@@ -1,14 +1,15 @@
-package ru.liga.orderservice.controller;
+package ru.liga.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-import ru.liga.orderservice.dto.NewOrderDto;
-import ru.liga.orderservice.dto.OrderInfoDto;
-import ru.liga.orderservice.dto.DeliveryOrderDto;
-import ru.liga.orderservice.service.OrderService;
+import ru.liga.dto.NewOrderDto;
+import ru.liga.dto.OrderInfoDto;
+import ru.liga.dto.DeliveryOrderDto;
+import ru.liga.model.OrderStatus;
+import ru.liga.service.OrderService;
 
 import javax.validation.Valid;
 
@@ -19,8 +20,11 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping
-    public Page<OrderInfoDto> findAllOrders(@PageableDefault Pageable pageable) {
-        return orderService.findAllOrders(pageable);
+    public Page<OrderInfoDto> findOrdersByStatus(@PageableDefault Pageable pageable,
+                                                 @RequestParam(required = false) OrderStatus status) {
+        return status == null ?
+                orderService.findAllOrders(pageable) :
+                orderService.findOrdersByStatus(pageable, status);
     }
 
     @GetMapping("/{id}")

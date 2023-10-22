@@ -1,16 +1,16 @@
-package ru.liga.orderservice.service.impl;
+package ru.liga.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.liga.orderservice.dto.NewOrderItemDto;
-import ru.liga.orderservice.mapper.NewOrderItemMapper;
-import ru.liga.orderservice.model.OrderItem;
-import ru.liga.orderservice.repository.OrderItemRepository;
-import ru.liga.orderservice.service.OrderItemsService;
+import ru.liga.dto.NewOrderItemDto;
+import ru.liga.mapper.NewOrderItemMapper;
+import ru.liga.model.OrderItem;
+import ru.liga.repository.OrderItemRepository;
+import ru.liga.service.OrderItemService;
 
 @Service
 @AllArgsConstructor
-public class OrderItemServiceImpl implements OrderItemsService {
+public class OrderItemServiceImpl implements OrderItemService {
     private final OrderItemRepository orderItemRepository;
     private final NewOrderItemMapper newOrderItemMapper;
 

@@ -1,18 +1,23 @@
-package ru.liga.orderservice.service.impl;
+package ru.liga.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.liga.orderservice.dto.*;
-import ru.liga.orderservice.exception.DataNotFoundException;
-import ru.liga.orderservice.mapper.OrderInfoMapper;
-import ru.liga.orderservice.model.Order;
-import ru.liga.orderservice.repository.OrderRepository;
-import ru.liga.orderservice.service.OrderService;
+import ru.liga.dto.DeliveryOrderDto;
+import ru.liga.dto.NewOrderDto;
+import ru.liga.dto.OrderInfoDto;
+import ru.liga.exception.DataNotFoundException;
+import ru.liga.mapper.OrderInfoMapper;
+
+import ru.liga.model.Order;
+import ru.liga.model.OrderStatus;
+import ru.liga.repository.OrderRepository;
+import ru.liga.service.OrderService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -36,5 +41,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public DeliveryOrderDto addOrder(NewOrderDto newOrder) {
         return new DeliveryOrderDto(1L, "supersecreturl", LocalDateTime.now());
+    }
+
+    @Override
+    public Page<OrderInfoDto> findOrdersByStatus(Pageable pageable, OrderStatus status) {
+        List<Order> ordersByStatus = orderRepository.findOrdersByStatus(status);
+        return new PageImpl<>(orderInfoMapper.mapToDto(ordersByStatus));
     }
 }

@@ -1,4 +1,4 @@
-package ru.liga.orderservice.dto;
+package ru.liga.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

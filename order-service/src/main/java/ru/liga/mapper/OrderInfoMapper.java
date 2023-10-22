@@ -1,9 +1,9 @@
-package ru.liga.orderservice.mapper;
+package ru.liga.mapper;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.liga.orderservice.dto.OrderInfoDto;
-import ru.liga.orderservice.model.Order;
+import ru.liga.dto.OrderInfoDto;
+import ru.liga.model.Order;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,10 +13,12 @@ import java.util.stream.Collectors;
 public class OrderInfoMapper {
     private final MenuItemInOrderMapper menuItemInOrderMapper;
     private final RestaurantMapper restaurantMapper;
+    private final CustomerMapper customerMapper;
 
     public OrderInfoDto mapToDto(Order entity) {
         return new OrderInfoDto(
                 entity.getId(),
+                customerMapper.mapToDto(entity.getCustomer()),
                 restaurantMapper.mapToDto(entity.getRestaurant()),
                 entity.getTimestamp(),
                 menuItemInOrderMapper.mapToDto(entity.getOrderItems())

@@ -1,24 +1,24 @@
-package ru.liga.orderservice.controller;
+package ru.liga.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.liga.orderservice.dto.NewOrderItemDto;
-import ru.liga.orderservice.model.OrderItem;
-import ru.liga.orderservice.service.OrderItemsService;
+import ru.liga.model.OrderItem;
+import ru.liga.dto.NewOrderItemDto;
+import ru.liga.service.OrderItemService;
 
 @RestController
 @RequestMapping("/order-items")
 @AllArgsConstructor
 public class OrderItemController {
-    private final OrderItemsService orderItemsService;
+    private final OrderItemService orderItemService;
 
     @PostMapping
     public OrderItem addOrderItem(@RequestBody NewOrderItemDto newOrderItemDto) {
-        return orderItemsService.addOrderItem(newOrderItemDto);
+        return orderItemService.addOrderItem(newOrderItemDto);
     }
 
     @DeleteMapping("/{id}")
     public void deleteOrderItemById(@PathVariable Long id) {
-        orderItemsService.deleteOrderItemById(id);
+        orderItemService.deleteOrderItemById(id);
     }
 }

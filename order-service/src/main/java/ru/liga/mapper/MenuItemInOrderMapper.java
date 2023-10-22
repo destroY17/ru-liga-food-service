@@ -1,8 +1,8 @@
-package ru.liga.orderservice.mapper;
+package ru.liga.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.liga.orderservice.dto.MenuItemInOrderDto;
-import ru.liga.orderservice.model.OrderItem;
+import ru.liga.dto.MenuItemInOrderDto;
+import ru.liga.model.OrderItem;
 
 import java.util.List;
 import java.util.stream.Collectors;
