@@ -1,4 +1,4 @@
-package ru.liga.notificationservice;
+package ru.liga;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
