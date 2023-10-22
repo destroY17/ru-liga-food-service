@@ -1,4 +1,4 @@
-package ru.liga.orderservice.model;
+package ru.liga.model;
 
 public enum OrderStatus {
     PENDING,

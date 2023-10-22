@@ -1,4 +1,4 @@
-package ru.liga.orderservice.dto;
+package ru.liga.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderInfoDto {
     private Long id;
+    private CustomerDeliveryDto customer;
     private RestaurantDto restaurant;
     private LocalDateTime timestamp;
     private List<MenuItemInOrderDto> items;

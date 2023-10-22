@@ -1,4 +1,4 @@
-package ru.liga.deliveryservice.exception.handler;
+package ru.liga.exception.handler;
 
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

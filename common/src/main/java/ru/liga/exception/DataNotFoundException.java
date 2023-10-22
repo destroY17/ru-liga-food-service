@@ -1,4 +1,4 @@
-package ru.liga.orderservice.exception;
+package ru.liga.exception;
 
 public class DataNotFoundException extends RuntimeException {
     public DataNotFoundException(String message) {
