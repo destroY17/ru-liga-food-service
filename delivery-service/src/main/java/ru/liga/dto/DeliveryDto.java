@@ -1,4 +1,4 @@
-package ru.liga.deliveryservice.dto;
+package ru.liga.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class DeliveryDto {
     private Long orderId;
-    private RestaurantDto restaurant;
-    private CustomerDto customer;
+    private RestaurantDeliveryDto restaurant;
+    private CustomerDeliveryDto customer;
     private double payment;
 }

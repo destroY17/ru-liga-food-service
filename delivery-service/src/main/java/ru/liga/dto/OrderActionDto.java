@@ -1,9 +1,9 @@
-package ru.liga.deliveryservice.dto;
+package ru.liga.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.liga.deliveryservice.model.OrderAction;
+import ru.liga.model.OrderAction;
 
 
 @Data

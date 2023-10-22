@@ -1,4 +1,4 @@
-package ru.liga.deliveryservice.model;
+package ru.liga.model;
 
 public enum OrderAction {
     ACCEPT,

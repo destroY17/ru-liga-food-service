@@ -1,11 +1,11 @@
-package ru.liga.deliveryservice.dto;
+package ru.liga.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class RestaurantDto {
+public class RestaurantDeliveryDto {
     private String address;
     private double distance;
 }
