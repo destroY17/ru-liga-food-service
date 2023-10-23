@@ -15,8 +15,8 @@ public class RabbitConfiguration {
     @Bean
     public CachingConnectionFactory connectionFactory() {
         CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("localhost");
-        cachingConnectionFactory.setUsername("admin");
-        cachingConnectionFactory.setPassword("1234");
+        cachingConnectionFactory.setUsername("guest");
+        cachingConnectionFactory.setPassword("guest");
         return cachingConnectionFactory;
     }
 
