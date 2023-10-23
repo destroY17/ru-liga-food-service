@@ -22,6 +22,7 @@
         <springdoc.version>1.7.0</springdoc.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <feign.version>3.1.8</feign.version>
+        <mybatis.version>2.2.2</mybatis.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -75,7 +76,7 @@
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${springboot.version}</version>
+                <version>${mybatis.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springdoc</groupId>
