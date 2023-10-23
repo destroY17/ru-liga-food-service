@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Table(name = "orders")
@@ -38,7 +38,7 @@ public class Order {
     private Courier courier;
 
     @Column(name = "timestamp")
-    private LocalDateTime timestamp;
+    private Timestamp timestamp;
 
     @OneToMany(mappedBy = "order")
     @JsonIgnore

@@ -11,6 +11,7 @@ import ru.liga.dto.OrderInfoDto;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapper.OrderInfoMapper;
 
+import ru.liga.model.Courier;
 import ru.liga.model.Order;
 import ru.liga.model.OrderStatus;
 import ru.liga.repository.OrderRepository;
@@ -41,6 +42,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public DeliveryOrderDto addOrder(NewOrderDto newOrder) {
         return new DeliveryOrderDto(1L, "supersecreturl", LocalDateTime.now());
+    }
+
+    @Override
+    public Page<OrderInfoDto> findOrdersByStatusAndCourier(OrderStatus status, Courier courier) {
+        List<Order> orders = orderRepository.findOrdersByStatusAndCourier(status, courier);
+        return new PageImpl<>(orderInfoMapper.mapToDto(orders));
     }
 
     @Override

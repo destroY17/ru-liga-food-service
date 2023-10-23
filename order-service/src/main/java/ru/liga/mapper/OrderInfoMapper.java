@@ -18,7 +18,7 @@ public class OrderInfoMapper {
     public OrderInfoDto mapToDto(Order entity) {
         return new OrderInfoDto(
                 entity.getId(),
-                customerMapper.mapToDto(entity.getCustomer()),
+                entity.getCustomer() != null ? customerMapper.mapToDto(entity.getCustomer()) : null,
                 restaurantMapper.mapToDto(entity.getRestaurant()),
                 entity.getTimestamp(),
                 menuItemInOrderMapper.mapToDto(entity.getOrderItems())
