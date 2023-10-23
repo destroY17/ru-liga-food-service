@@ -9,6 +9,6 @@ import ru.liga.model.OrderStatus;
 import java.util.List;
 
 public interface DeliveryService {
-    Page<DeliveryDto> findDeliveriesByStatus(Pageable page, OrderStatus status);
+    Page<DeliveryDto> findDeliveriesByStatus(Pageable pageable,OrderStatus status);
     List<Courier> findAllCouriers();
 }

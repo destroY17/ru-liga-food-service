@@ -19,7 +19,7 @@ public class DeliveryController {
 
     @GetMapping("/deliveries")
     public Page<DeliveryDto> findAllDeliveries(@PageableDefault Pageable pageable,
-                                               @RequestParam OrderStatus status) {
+                                               @RequestParam(required = false) OrderStatus status) {
         return deliveryService.findDeliveriesByStatus(pageable, status);
     }
 

@@ -26,8 +26,8 @@ public class DeliveryServiceImpl implements DeliveryService {
     private final CourierMapper courierMapper;
 
     @Override
-    public Page<DeliveryDto> findDeliveriesByStatus(Pageable page, OrderStatus status) {
-        Page<OrderInfoDto> ordersByStatus = orderFeign.findOrdersByStatus(status);
+    public Page<DeliveryDto> findDeliveriesByStatus(Pageable pageable, OrderStatus status) {
+        Page<OrderInfoDto> ordersByStatus = orderFeign.findOrdersByStatus(pageable, status);
         return new PageImpl<>(deliveryToOrderMapper.mapToDelivery(ordersByStatus.getContent()));
     }
 
