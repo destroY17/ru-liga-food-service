@@ -10,6 +10,7 @@ import ru.liga.repository.MenuItemRepository;
 import ru.liga.service.MenuItemService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -32,5 +33,10 @@ public class MenuItemServiceImpl implements MenuItemService {
     public RestaurantMenuItem changePrice(RestaurantMenuItem menuItem, BigDecimal price) {
         menuItem.setPrice(price);
         return menuItemRepository.save(menuItem);
+    }
+
+    @Override
+    public List<RestaurantMenuItem> findMenuItemsLessThanPrice(Long restaurantId, BigDecimal price) {
+        return menuItemRepository.findMenuItemsLessThanPrice(restaurantId, price);
     }
 }
