@@ -64,117 +64,20 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "order-items",
-			"item": [
+				},
 				{
-					"name": "/order-items",
+					"name": "/orders?status",
 					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"order_id\" : 1,\r\n    \"restaurant_menu_item_id\" : 2,\r\n    \"quantity\" : 5\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8084/order-items",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8084",
-							"path": [
-								"order-items"
-							]
-						}
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				},
 				{
-					"name": "/order-items/{id}",
+					"name": "/orders/{id}/send/delivery",
 					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8084/order-items/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8084",
-							"path": [
-								"order-items",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "restaurant-menu-items",
-			"item": [
-				{
-					"name": "restaurant-menu-items",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"restaurant_id\" : 1,\r\n    \"name\" : \"Chicken\",\r\n    \"price\" : 12,\r\n    \"image\" : \"chicken.png\",\r\n    \"description\" : \"the best chicken in the world\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8084/restaurant-menu-items",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8084",
-							"path": [
-								"restaurant-menu-items"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "restaurant-menu-items/{id}",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8084/restaurant-menu-items/1/change-price?price=20",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8084",
-							"path": [
-								"restaurant-menu-items",
-								"1",
-								"change-price"
-							],
-							"query": [
-								{
-									"key": "price",
-									"value": "20"
-								}
-							]
-						}
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}

@@ -1,13 +1,29 @@
 {
 	"info": {
-		"_postman_id": "8a69477c-c0b4-4d23-8c58-199d9a1546ba",
+		"_postman_id": "58eb1e87-d016-450d-96cc-73aee0ad9431",
 		"name": "delivery-service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28598356"
 	},
 	"item": [
 		{
-			"name": "deliveries",
+			"name": "/couriers",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "/deliveries?status",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "/deliveries",
 			"request": {
 				"method": "GET",
 				"header": []

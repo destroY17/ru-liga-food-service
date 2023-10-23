@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "e0f7a650-a209-4c48-9a28-7f63414059fc",
+		"name": "kitchen-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28598356"
+	},
+	"item": [
+		{
+			"name": "/restaurant-menu-items/{restaurantId}",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "/restaurant-menu-items",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"restaurant_id\" : 1,\r\n    \"name\" : \"Soup\",\r\n    \"price\" : 5.35,\r\n    \"image\" : \"soup.png\",\r\n    \"description\" : \"The best soup in the world\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/restaurant-menu-items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"restaurant-menu-items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/restaurant-menu-items/{id}/change-price",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/restaurant-menu-items/2/change-price?price=15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"restaurant-menu-items",
+						"2",
+						"change-price"
+					],
+					"query": [
+						{
+							"key": "price",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
