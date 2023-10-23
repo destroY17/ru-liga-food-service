@@ -3,7 +3,7 @@ package ru.liga.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -12,6 +12,6 @@ public class OrderInfoDto {
     private Long id;
     private CustomerDeliveryDto customer;
     private RestaurantDto restaurant;
-    private LocalDateTime timestamp;
+    private Timestamp timestamp;
     private List<MenuItemInOrderDto> items;
 }
