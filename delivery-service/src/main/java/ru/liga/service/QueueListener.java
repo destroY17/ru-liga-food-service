@@ -10,7 +10,13 @@ import org.springframework.stereotype.Service;
 public class QueueListener {
     private final ObjectMapper objectMapper;
 
+    //TODO: fix parsing
     @RabbitListener(queues = "delivery")
     public void handleDeliveryQueue(String orderInfo) {
+//        try {
+//            OrderInfoDto order = objectMapper.readValue(orderInfo, OrderInfoDto.class);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }
