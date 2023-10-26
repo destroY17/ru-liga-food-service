@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class MenuItemInOrderMapper {
-    public MenuItemInOrderDto mapToDto(OrderItem entity) {
+    public MenuItemInOrderDto toDto(OrderItem entity) {
         return new MenuItemInOrderDto(
                 entity.getPrice(),
                 entity.getQuantity(),
@@ -18,9 +18,9 @@ public class MenuItemInOrderMapper {
         );
     }
 
-    public List<MenuItemInOrderDto> mapToDto(List<OrderItem> entities) {
+    public List<MenuItemInOrderDto> toDto(List<OrderItem> entities) {
         return entities.stream()
-                .map(this::mapToDto)
+                .map(this::toDto)
                 .collect(Collectors.toList());
     }
 }

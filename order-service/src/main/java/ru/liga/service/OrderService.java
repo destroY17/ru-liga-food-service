@@ -9,7 +9,10 @@ import ru.liga.model.OrderStatus;
 
 public interface OrderService {
     Page<OrderInfoDto> findAllOrders(Pageable page);
+
     Page<OrderInfoDto> findOrdersByStatus(Pageable pageable, OrderStatus status);
+
     OrderInfoDto findOrderById(Long id);
-    DeliveryOrderDto addOrder(NewOrderDto newOrder);
+
+    DeliveryOrderDto addOrder(Long customerId, NewOrderDto newOrder);
 }
