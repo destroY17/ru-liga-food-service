@@ -1,6 +1,6 @@
 package ru.liga.service.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.liga.dto.NewMenuItemDto;
 import ru.liga.exception.DataNotFoundException;
@@ -13,20 +13,20 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MenuItemServiceImpl implements MenuItemService {
     private final MenuItemRepository menuItemRepository;
     private final NewMenuItemMapper newMenuItemMapper;
 
     @Override
     public RestaurantMenuItem addMenuItem(NewMenuItemDto menuItem) {
-        return menuItemRepository.save(newMenuItemMapper.mapToEntity(menuItem));
+        return menuItemRepository.save(newMenuItemMapper.toEntity(menuItem));
     }
 
     @Override
     public RestaurantMenuItem findMenuItemById(Long id) {
         return menuItemRepository.findById(id)
-                .orElseThrow(() -> new DataNotFoundException("Menu item is not found"));
+                .orElseThrow(() -> new DataNotFoundException(String.format("Menu item id=%d is not found", id)));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     @Override
-    public List<RestaurantMenuItem> findMenuItemsLessThanPrice(Long restaurantId, BigDecimal price) {
+    public List<RestaurantMenuItem> findAllCheaperPrice(Long restaurantId, BigDecimal price) {
         return menuItemRepository.findMenuItemsLessThanPrice(restaurantId, price);
     }
 }

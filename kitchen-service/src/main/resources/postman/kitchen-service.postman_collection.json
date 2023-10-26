@@ -7,67 +7,169 @@
 	},
 	"item": [
 		{
-			"name": "/restaurant-menu-items/{restaurantId}",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "/restaurant-menu-items",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"restaurant_id\" : 1,\r\n    \"name\" : \"Soup\",\r\n    \"price\" : 5.35,\r\n    \"image\" : \"soup.png\",\r\n    \"description\" : \"The best soup in the world\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "kitchen",
+			"item": [
+				{
+					"name": "/kitchen/accept/{orderId}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/kitchen/accept/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"kitchen",
+								"accept",
+								"1"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8082/restaurant-menu-items",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8082",
-					"path": [
-						"restaurant-menu-items"
-					]
+				{
+					"name": "/kitchen/deny/{orderId}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/kitchen/deny/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"kitchen",
+								"deny",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/kitchen/complete/{orderId}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/kitchen/complete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"kitchen",
+								"complete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/kitchen/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"order_id\" : 1,\r\n    \"order_status\" : \"KITCHEN_ACCEPTED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/kitchen/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"kitchen",
+								"update"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "/restaurant-menu-items/{id}/change-price",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8082/restaurant-menu-items/2/change-price?price=15",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8082",
-					"path": [
-						"restaurant-menu-items",
-						"2",
-						"change-price"
-					],
-					"query": [
-						{
-							"key": "price",
-							"value": "15"
+			"name": "menu-items",
+			"item": [
+				{
+					"name": "/menu-items/{restaurantId}",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "/menu-items",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"restaurant_id\" : 1,\r\n    \"name\" : \"Soup\",\r\n    \"price\" : 5.35,\r\n    \"image\" : \"soup.png\",\r\n    \"description\" : \"The best soup in the world\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/restaurant-menu-items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"restaurant-menu-items"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "/menu-items/{id}/change-price",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/restaurant-menu-items/2/change-price?price=15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"restaurant-menu-items",
+								"2",
+								"change-price"
+							],
+							"query": [
+								{
+									"key": "price",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

@@ -1,6 +1,6 @@
 package ru.liga.mapper;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.repository.MenuItemRepository;
@@ -13,12 +13,12 @@ import ru.liga.repository.OrderRepository;
 import java.math.BigDecimal;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class NewOrderItemMapper {
     private final MenuItemRepository menuItemRepository;
     private final OrderRepository orderRepository;
 
-    public OrderItem mapToEntity(NewOrderItemDto dto) {
+    public OrderItem toEntity(NewOrderItemDto dto) {
         Order order = orderRepository.findById(dto.getOrderId())
                 .orElseThrow(() -> new DataNotFoundException("Order is not found"));
         RestaurantMenuItem menuItem = menuItemRepository.findById(dto.getRestaurantMenuItemId())

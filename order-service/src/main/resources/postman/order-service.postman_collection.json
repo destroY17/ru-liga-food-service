@@ -18,6 +18,14 @@
 					"response": []
 				},
 				{
+					"name": "/orders?status",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
 					"name": "/orders/{id}",
 					"request": {
 						"method": "GET",
@@ -64,20 +72,48 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "order-items",
+			"item": [
 				{
-					"name": "/orders?status",
+					"name": "/order-items",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/order-items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"order-items"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "/orders/{id}/send/delivery",
+					"name": "/order-items/{id}",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/order-items/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"order-items",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}

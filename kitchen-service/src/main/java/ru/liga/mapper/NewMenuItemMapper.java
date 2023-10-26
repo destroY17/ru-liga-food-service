@@ -13,7 +13,7 @@ import ru.liga.repository.RestaurantRepository;
 public class NewMenuItemMapper {
     private final RestaurantRepository restaurantRepository;
 
-    public RestaurantMenuItem mapToEntity(NewMenuItemDto dto) {
+    public RestaurantMenuItem toEntity(NewMenuItemDto dto) {
         Restaurant restaurant = restaurantRepository.findById(dto.getRestaurantId())
                 .orElseThrow(() -> new DataNotFoundException("Restaurant is not found"));
 

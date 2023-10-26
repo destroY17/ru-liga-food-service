@@ -29,6 +29,14 @@
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "/couriers/{id}",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }
