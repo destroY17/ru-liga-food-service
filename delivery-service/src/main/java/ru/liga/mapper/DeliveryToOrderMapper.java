@@ -1,38 +1,39 @@
 package ru.liga.mapper;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.liga.dto.DeliveryDto;
-import ru.liga.dto.MenuItemInOrderDto;
-import ru.liga.dto.OrderInfoDto;
-import ru.liga.dto.RestaurantDeliveryDto;
+import ru.liga.model.Order;
+import ru.liga.model.OrderItem;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DeliveryToOrderMapper {
-    //TODO: change mapping logic
-    public DeliveryDto mapToDelivery(OrderInfoDto order) {
+    private final RestaurantDeliveryMapper restaurantDeliveryMapper;
+    private final CustomerMapper customerMapper;
+
+    public DeliveryDto toDto(Order entity) {
         double payment = 0;
-        for (MenuItemInOrderDto item : order.getItems()) {
+
+        for (OrderItem item : entity.getOrderItems()) {
             payment += item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())).doubleValue();
         }
 
         return new DeliveryDto(
-                order.getId(),
-                new RestaurantDeliveryDto(order.getRestaurant().getAddress(),
-                order.getCustomer().getDistance()),
-                order.getCustomer(),
+                entity.getId(),
+                restaurantDeliveryMapper.toDto(entity.getRestaurant()),
+                customerMapper.toDto(entity.getCustomer()),
                 payment
         );
     }
 
-    public List<DeliveryDto> mapToDelivery(List<OrderInfoDto> orders) {
-        return orders.stream()
-                .map(this::mapToDelivery)
+    public List<DeliveryDto> toDto(List<Order> entities) {
+        return entities.stream()
+                .map(this::toDto)
                 .collect(Collectors.toList());
     }
 }
