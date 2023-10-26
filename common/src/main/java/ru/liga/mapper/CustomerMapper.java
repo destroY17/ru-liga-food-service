@@ -7,7 +7,7 @@ import ru.liga.model.Customer;
 @Component
 public class CustomerMapper {
     //TODO: do something with distance
-    public CustomerDeliveryDto mapToDto(Customer entity) {
+    public CustomerDeliveryDto toDto(Customer entity) {
         return new CustomerDeliveryDto(entity.getAddress(), 1);
     }
 }

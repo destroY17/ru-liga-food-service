@@ -6,7 +6,7 @@ import ru.liga.model.Restaurant;
 
 @Component
 public class RestaurantMapper {
-    public RestaurantDto mapToDto(Restaurant entity) {
+    public RestaurantDto toDto(Restaurant entity) {
         return new RestaurantDto(entity.getName(), entity.getAddress());
     }
 }
