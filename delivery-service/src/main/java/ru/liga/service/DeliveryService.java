@@ -13,4 +13,6 @@ public interface DeliveryService {
     List<Courier> findAllCouriers();
 
     Courier findCourierById(Long id);
+
+    void notifyCouriers(Long orderId);
 }
