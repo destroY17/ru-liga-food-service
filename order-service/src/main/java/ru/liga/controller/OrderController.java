@@ -44,4 +44,15 @@ public class OrderController {
                 newOrder.toString(),customerId);
         return orderService.addOrder(customerId, newOrder);
     }
+
+    @PostMapping("/pay/{orderId}")
+    public void payForOrder(@PathVariable Long orderId, @RequestParam String paymentUrl) {
+        log.info("Received POST request to pay for order id={}", orderId);
+        orderService.payForOrder(orderId, paymentUrl);
+    }
+
+    @PostMapping("/sendToNotification/{id}")
+    public void sendToNotification(@PathVariable Long id) {
+        orderService.sendNewOrder(id, "newOrderToNotification");
+    }
 }

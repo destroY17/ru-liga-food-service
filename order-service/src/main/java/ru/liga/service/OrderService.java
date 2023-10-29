@@ -15,4 +15,8 @@ public interface OrderService {
     OrderInfoDto findOrderById(Long id);
 
     DeliveryOrderDto addOrder(Long customerId, NewOrderDto newOrder);
+
+    void sendNewOrder(Long orderId, String routingKey);
+
+    void payForOrder(Long orderId, String paymentUrl);
 }
