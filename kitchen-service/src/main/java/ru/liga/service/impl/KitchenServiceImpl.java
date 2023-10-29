@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.liga.dto.OrderActionDto;
 import ru.liga.model.OrderStatus;
 import ru.liga.repository.OrderRepository;
@@ -12,6 +13,7 @@ import ru.liga.service.KitchenService;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class KitchenServiceImpl implements KitchenService {
     private final OrderRepository orderRepository;
     private final RabbitTemplate rabbitTemplate;
@@ -27,7 +29,7 @@ public class KitchenServiceImpl implements KitchenService {
         updateOrderStatus(orderAction);
         rabbitTemplate.convertAndSend("directExchange", routingKey, orderAction);
 
-        log.info("Order id={}, status={} has been sent for delivery",
+        log.info("Order id={}, status={} completed",
                 orderAction.getOrderId(), orderAction.getStatus());
     }
 

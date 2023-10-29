@@ -1,20 +1,18 @@
 package ru.liga.config;
 
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Declarables;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RoutingConfiguration {
+
     @Bean
-    public Declarables deliveryQueue() {
-        Queue deliveryQueue = new Queue("delivery", false);
+    public Declarables kitchenToNotification() {
+        Queue kitchenToNotification = new Queue("kitchenToNotification", false);
         DirectExchange directExchange = new DirectExchange("directExchange");
 
-        return new Declarables(deliveryQueue, directExchange,
-                BindingBuilder.bind(deliveryQueue).to(directExchange).with("delivery"));
+        return new Declarables(kitchenToNotification, directExchange,
+                BindingBuilder.bind(kitchenToNotification).to(directExchange).with("kitchenToNotification"));
     }
 }
