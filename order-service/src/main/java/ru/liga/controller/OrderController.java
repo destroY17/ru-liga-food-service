@@ -13,6 +13,7 @@ import ru.liga.model.OrderStatus;
 import ru.liga.service.OrderService;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
@@ -26,9 +27,9 @@ public class OrderController {
                                                  @RequestParam(required = false) OrderStatus status) {
         log.info("Received GET request to find orders by status={}", status);
 
-        return status == null ?
-                orderService.findAllOrders(pageable) :
-                orderService.findOrdersByStatus(pageable, status);
+        return Optional.ofNullable(status)
+                .map(s -> orderService.findOrdersByStatus(pageable, s))
+                .orElse(orderService.findAllOrders(pageable));
     }
 
     @GetMapping("/{id}")

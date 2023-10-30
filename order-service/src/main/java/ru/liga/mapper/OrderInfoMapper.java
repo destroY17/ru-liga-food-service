@@ -19,9 +19,8 @@ public class OrderInfoMapper {
     public OrderInfoDto toDto(Order entity) {
         return new OrderInfoDto(
                 entity.getId(),
-                Optional.ofNullable(entity.getCustomer())
-                        .map(customerMapper::toDto)
-                        .orElse(null),
+                Optional.ofNullable(entity.getCustomer()).isPresent() ?
+                        customerMapper.toDto(entity.getCustomer()) : null,
                 restaurantMapper.toDto(entity.getRestaurant()),
                 entity.getTimestamp(),
                 menuItemInOrderMapper.toDto(entity.getOrderItems())
