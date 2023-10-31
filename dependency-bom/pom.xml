@@ -25,6 +25,7 @@
         <spring-cloud.version>2021.0.8</spring-cloud.version>
         <snakeyaml.version>2.0</snakeyaml.version>
         <springdoc.version>1.7.0</springdoc.version>
+        <swagger-core.version>2.2.9</swagger-core.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <feign.version>3.1.8</feign.version>
         <gateway.version>3.0.8</gateway.version>
@@ -126,6 +127,12 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-core.version}</version>
             </dependency>
 
             <dependency>
