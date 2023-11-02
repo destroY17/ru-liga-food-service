@@ -23,6 +23,8 @@
         <module>order-service</module>
         <module>migration</module>
         <module>common</module>
+        <module>auth-service</module>
+        <module>cloud-gateway</module>
     </modules>
 
 </project>

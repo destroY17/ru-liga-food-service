@@ -141,8 +141,7 @@ public class OAuth2AuthServerSecurityConfiguration {
 
     @Bean(name = "defaultPasswordEncoder")
     public PasswordEncoder defaultPasswordEncoder() {
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        return encoder;
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
 }
