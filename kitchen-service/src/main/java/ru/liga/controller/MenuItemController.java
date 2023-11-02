@@ -1,5 +1,7 @@
 package ru.liga.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,11 @@ import java.util.List;
 @RequestMapping("/menu-items")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "API для работы с товарами меню")
 public class MenuItemController {
     private final MenuItemService menuItemService;
 
+    @Operation(summary = "Найти все дешевле заданной цены")
     @GetMapping("/{restaurantId}")
     public List<RestaurantMenuItem> findAllCheaperPrice(@PathVariable Long restaurantId,
                                                         @RequestParam @Positive BigDecimal price) {
@@ -26,12 +30,14 @@ public class MenuItemController {
         return menuItemService.findAllCheaperPrice(restaurantId, price);
     }
 
+    @Operation(summary = "Добавить")
     @PostMapping
     public RestaurantMenuItem addMenuItem(@Valid @RequestBody NewMenuItemDto menuItem) {
         log.info("Received POST request to add new menu item:{}", menuItem);
         return menuItemService.addMenuItem(menuItem);
     }
 
+    @Operation(summary = "Изменить цену")
     @PatchMapping("/{id}/change-price")
     public RestaurantMenuItem changePrice(@PathVariable Long id,
                                           @RequestParam @Positive BigDecimal price) {

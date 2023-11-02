@@ -1,6 +1,7 @@
 package ru.liga.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
+@Schema(name = "Сведения о новом товаре меню")
 public class NewMenuItemDto {
     @NotNull
     @JsonProperty("restaurant_id")
