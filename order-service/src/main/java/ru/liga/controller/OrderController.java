@@ -13,6 +13,7 @@ import ru.liga.model.OrderStatus;
 import ru.liga.service.OrderService;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
@@ -26,9 +27,9 @@ public class OrderController {
                                                  @RequestParam(required = false) OrderStatus status) {
         log.info("Received GET request to find orders by status={}", status);
 
-        return status == null ?
-                orderService.findAllOrders(pageable) :
-                orderService.findOrdersByStatus(pageable, status);
+        return Optional.ofNullable(status)
+                .map(s -> orderService.findOrdersByStatus(pageable, s))
+                .orElse(orderService.findAllOrders(pageable));
     }
 
     @GetMapping("/{id}")
@@ -43,5 +44,16 @@ public class OrderController {
         log.info("Received POST request to add new order:{} by customer (id={})",
                 newOrder.toString(),customerId);
         return orderService.addOrder(customerId, newOrder);
+    }
+
+    @PostMapping("/pay/{orderId}")
+    public void payForOrder(@PathVariable Long orderId, @RequestParam String paymentUrl) {
+        log.info("Received POST request to pay for order id={}", orderId);
+        orderService.payForOrder(orderId, paymentUrl);
+    }
+
+    @PostMapping("/sendToNotification/{id}")
+    public void sendToNotification(@PathVariable Long id) {
+        orderService.sendNewOrder(id, "newOrderToNotification");
     }
 }

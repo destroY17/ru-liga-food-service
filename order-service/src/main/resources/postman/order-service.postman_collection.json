@@ -72,6 +72,54 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "/orders/pay/{orderId}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/orders/pay/1?paymentUrl=frk3ro43t",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"orders",
+								"pay",
+								"1"
+							],
+							"query": [
+								{
+									"key": "paymentUrl",
+									"value": "frk3ro43t"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/orders/sendToNotification/{id}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/orders/sendToNotification/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"orders",
+								"sendToNotification",
+								"6"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
