@@ -2,6 +2,7 @@ package ru.liga.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@Builder
 @Schema(name = "Информация о заказе")
 public class OrderInfoDto {
     @NotNull
