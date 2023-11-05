@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @Builder
-@Schema(description = "Сведения о доставки заказа для покупателя")
+@Schema(name = "Сведения о доставки заказа для покупателя")
 public class DeliveryOrderDto {
     @NotNull
     private Long id;

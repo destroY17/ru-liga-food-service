@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class NewOrderMapper {
     private final CustomerRepository customerRepository;
     private final RestaurantRepository restaurantRepository;
-    private final OrderItemMapper mapper;
+    private final OrderItemMapper orderItemMapper;
 
     public Order toEntity(Long customerId, NewOrderDto newOrder) {
         return Order.builder()
@@ -24,7 +24,7 @@ public class NewOrderMapper {
                 .restaurant(restaurantRepository.findById(newOrder.getRestaurantId()).orElseThrow())
                 .status(OrderStatus.CUSTOMER_CREATED)
                 .timestamp(Timestamp.valueOf(LocalDateTime.now()))
-                .orderItems(mapper.toDto(newOrder.getMenuItems()))
+                .orderItems(orderItemMapper.toDto(newOrder.getMenuItems()))
                 .build();
     }
 }

@@ -11,7 +11,7 @@ import ru.liga.service.KitchenService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/kitchen")
+@RequestMapping("/kitchen-service")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "API обработки заказа и его подготовки к доставке")
