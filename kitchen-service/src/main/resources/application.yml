@@ -1,5 +1,7 @@
 server:
   port: 8082
+  forward-headers-strategy: framework
+
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -11,3 +13,12 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:9000
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: gateway
+      client-secret: secret

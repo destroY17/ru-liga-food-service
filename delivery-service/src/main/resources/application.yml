@@ -1,16 +1,24 @@
 server:
   port: 8081
+  forward-headers-strategy: framework
+
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: 1234
-  jackson:
-    mapper:
-      accept-case-insensitive-enums: true
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:9000
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: gateway
+      client-secret: secret
