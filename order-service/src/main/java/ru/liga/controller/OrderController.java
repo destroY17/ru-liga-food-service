@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import ru.liga.aop.annotation.UserLog;
 import ru.liga.dto.NewOrderDto;
+import ru.liga.dto.OrderActionDto;
 import ru.liga.dto.OrderInfoDto;
 import ru.liga.dto.DeliveryOrderDto;
 import ru.liga.model.OrderStatus;
@@ -109,18 +110,22 @@ public class OrderController {
     }
 
     /**
-     * Отправить заказ на приготовление
-     * @param id идентификатор заказа
+     * Обновление статуса заказа
+     *
+     * @param orderActionDto данные для обновления статуса
      */
     @UserLog
-    @Operation(summary = "Оповестить о готовности заказа к приготовлению")
+    @Operation(summary = "Обновить статус")
     @ApiResponse(responseCode = "200", description = "OK")
     @ApiResponse(responseCode = "400", description = "Bad request")
     @ApiResponse(responseCode = "401", description = "Not authorized")
     @ApiResponse(responseCode = "404", description = "Order not found")
     @ApiResponse(responseCode = "500", description = "Internal server error")
-    @PostMapping("/sendToNotification/{id}")
-    public void sendToNotification(@PathVariable Long id) {
-        orderService.sendNewOrder(id, "newOrderToNotification");
+    @PostMapping("/update")
+    public void updateOrderStatus(@Valid @RequestBody OrderActionDto orderActionDto) {
+        log.info("Received POST request to update status of order id={}, updated status={}",
+                orderActionDto.getOrderId(), orderActionDto.getStatus());
+        orderService.updateOrderStatus(orderActionDto);
     }
+
 }

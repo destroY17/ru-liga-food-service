@@ -18,4 +18,31 @@ public class SwaggerConfiguration {
                 )
         );
     }
+//
+//    @Bean
+//    public OpenAPI customOpenAPI() {
+//        return new OpenAPI()
+//                .components(new Components()
+//                        .addSecuritySchemes("spring_oauth", new SecurityScheme()
+//                                .type(SecurityScheme.Type.OAUTH2)
+//                                .flows(new OAuthFlows()
+//                                        .clientCredentials(new OAuthFlow()
+//                                                .tokenUrl("http://localhost:9000/oauth/token")
+//                                                .scopes(new Scopes()
+//                                                        .addString("read", "for read operations")
+//                                                        .addString("write", "for write operations")
+//                                                )
+//                                        )
+//                                )
+//                        )
+//                )
+//                .security(Collections.singletonList(
+//                        new SecurityRequirement().addList("spring_oauth")))
+//                .info(new Info()
+//                        .title("Food Service API")
+//                        .description("Сервис работы с заказами")
+//                        .contact(new Contact().email("test@test.com").name("Andrei Eikhe"))
+//                        .version("1.0")
+//                );
+//    }
 }

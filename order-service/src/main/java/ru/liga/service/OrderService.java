@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.liga.dto.DeliveryOrderDto;
 import ru.liga.dto.NewOrderDto;
+import ru.liga.dto.OrderActionDto;
 import ru.liga.dto.OrderInfoDto;
 import ru.liga.model.OrderStatus;
 
@@ -16,7 +17,9 @@ public interface OrderService {
 
     DeliveryOrderDto addOrder(Long customerId, NewOrderDto newOrder);
 
-    void sendNewOrder(Long orderId, String routingKey);
-
     void payForOrder(Long orderId, String paymentUrl);
+
+    void updateOrderStatus(OrderActionDto orderAction);
+
+    void refundOfFunds(Long orderId);
 }
