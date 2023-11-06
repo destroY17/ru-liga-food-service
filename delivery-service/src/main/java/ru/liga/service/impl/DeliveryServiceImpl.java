@@ -6,17 +6,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.liga.batismapper.CourierMapper;
 import ru.liga.dto.DeliveryDto;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.exception.IncorrectOrderStatusException;
 import ru.liga.mapper.DeliveryToOrderMapper;
 import ru.liga.model.Courier;
 
+import ru.liga.model.CourierStatus;
 import ru.liga.model.Order;
 import ru.liga.model.OrderStatus;
 import ru.liga.repository.OrderRepository;
 import ru.liga.service.DeliveryService;
+import ru.liga.util.OrderUtil;
 
 import java.util.List;
 
@@ -24,6 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class DeliveryServiceImpl implements DeliveryService {
+    private final DistanceCalculator distanceCalculator;
     private final DeliveryToOrderMapper deliveryToOrderMapper;
     private final OrderRepository orderRepository;
     private final CourierMapper courierMapper;
@@ -44,21 +47,50 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     public Courier findCourierById(Long id) {
         return courierMapper.findCourierById(id)
-                .orElseThrow(() ->
-                        new DataNotFoundException("Courier with id =" + id + " is not found"));
+                .orElseThrow(() -> new DataNotFoundException("Courier with id =" + id + " is not found"));
     }
 
-    //TODO: add logic to notify
     @Override
-    public void notifyCouriers(Long orderId) {
+    @Transactional
+    public void assignCourier(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new DataNotFoundException("Order id=" + orderId + " is not found"));
+        OrderUtil.correctStatusOrElseThrow(order.getStatus(), OrderStatus.DELIVERY_PENDING);
 
-        if (order.getStatus() != OrderStatus.DELIVERY_PENDING) {
-            throw new IncorrectOrderStatusException("Order id=" + orderId + "has status=" + order.getStatus()
-            + ", expected status=" + OrderStatus.DELIVERY_PENDING);
+        List<Courier> inactiveCouriers = courierMapper.findByStatus(CourierStatus.INACTIVE);
+
+        if (inactiveCouriers.size() == 0) {
+            log.info("Inactive couriers not found");
+            return;
         }
 
-        log.info("Couriers are notified of order={}", orderId);
+        String restaurantAddress = order.getRestaurant().getAddress();
+        Courier nearest = findNearestCourier(inactiveCouriers, restaurantAddress);
+        courierMapper.updateStatus(nearest.getId(), CourierStatus.ACTIVE);
+        order.setCourier(nearest);
+        orderRepository.updateOrderByStatus(order.getId(), OrderStatus.DELIVERY_PICKING);
+
+        log.info("Courier id={} is assigned to order id={}", nearest.getId(), order.getId());
+    }
+
+    private Courier findNearestCourier(List<Courier> couriers, String restaurantAddress) {
+        if (couriers.size() == 0) {
+            throw new IllegalArgumentException("couriers must not be empty");
+        }
+
+        Courier assigned = couriers.get(0);
+        double minDistance =
+                distanceCalculator.calculateDistance(restaurantAddress, assigned.getCoordinates());
+
+        for (Courier courier : couriers) {
+            double distance =
+                    distanceCalculator.calculateDistance(restaurantAddress, courier.getCoordinates());
+
+            if (distance < minDistance) {
+                minDistance = distance;
+                assigned = courier;
+            }
+        }
+        return assigned;
     }
 }

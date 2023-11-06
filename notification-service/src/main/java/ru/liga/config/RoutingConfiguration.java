@@ -11,20 +11,23 @@ import org.springframework.context.annotation.Configuration;
 public class RoutingConfiguration {
     @Bean
     public Declarables newOrderToKitchenQueue() {
-        Queue newOrderToKitchen = new Queue("newOrderToKitchen", false);
+        String orderToKitchenQueue = "newOrderToKitchen";
+        String kitchenToOrderQueue = "kitchenToOrder";
+        String orderToDeliveryQueue = "orderToDelivery";
+
+        Queue newOrderToKitchen = new Queue(orderToKitchenQueue, false);
+        Queue kitchenToOrder = new Queue(kitchenToOrderQueue, false);
+        Queue orderToDelivery = new Queue(orderToDeliveryQueue, false);
+
         DirectExchange directExchange = new DirectExchange("directExchange");
 
-        return new Declarables(newOrderToKitchen, directExchange,
-                BindingBuilder.bind(newOrderToKitchen).to(directExchange).with("newOrderToKitchen"));
+        return new Declarables(newOrderToKitchen,
+                kitchenToOrder,
+                orderToDelivery,
+                directExchange,
+                BindingBuilder.bind(newOrderToKitchen).to(directExchange).with(orderToDeliveryQueue),
+                BindingBuilder.bind(kitchenToOrder).to(directExchange).with(kitchenToOrderQueue),
+                BindingBuilder.bind(orderToDelivery).to(directExchange).with(orderToDeliveryQueue)
+        );
     }
-
-    @Bean
-    public Declarables orderToDeliveryQueue() {
-        Queue orderToDelivery = new Queue("orderToDelivery", false);
-        DirectExchange directExchange = new DirectExchange("directExchange");
-
-        return new Declarables(orderToDelivery, directExchange,
-                BindingBuilder.bind(orderToDelivery).to(directExchange).with("orderToDelivery"));
-    }
-
 }
