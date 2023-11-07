@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.liga.client.DeliveryClient;
 import ru.liga.dto.OrderActionDto;
 import ru.liga.model.*;
-import ru.liga.repository.OrderRepository;
 import ru.liga.service.DeliveryService;
 
 @EnableRabbit
@@ -19,16 +18,14 @@ import ru.liga.service.DeliveryService;
 public class QueueListener {
     private final DeliveryClient deliveryClient;
     private final DeliveryService deliveryService;
-    private final OrderRepository orderRepository;
 
     @RabbitListener(queues = "orderToDelivery")
     @Transactional
     public void handleOrderToDelivery(OrderActionDto orderAction) {
         orderAction.setStatus(OrderStatus.DELIVERY_PENDING);
         log.info("Order id={} has arrived to delivery", orderAction.getOrderId());
+        deliveryClient.updateOrderStatus(orderAction);
 
-        orderRepository.updateOrderByStatus(orderAction.getOrderId(), OrderStatus.DELIVERY_PENDING);
         deliveryService.assignCourier(orderAction.getOrderId());
-
     }
 }

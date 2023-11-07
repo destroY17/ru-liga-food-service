@@ -27,8 +27,10 @@ import java.util.List;
 @Slf4j
 public class DeliveryServiceImpl implements DeliveryService {
     private final DistanceCalculator distanceCalculator;
-    private final DeliveryToOrderMapper deliveryToOrderMapper;
+
     private final OrderRepository orderRepository;
+
+    private final DeliveryToOrderMapper deliveryToOrderMapper;
     private final CourierMapper courierMapper;
 
     @Override
