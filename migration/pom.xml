@@ -11,7 +11,6 @@
 
     <artifactId>migration</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>migration</name>
 
     <properties>
         <liquibase-maven-plugin.version>4.9.1</liquibase-maven-plugin.version>
@@ -22,6 +21,7 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>

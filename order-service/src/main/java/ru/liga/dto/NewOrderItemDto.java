@@ -10,7 +10,7 @@ import javax.validation.constraints.Positive;
 
 @Data
 @AllArgsConstructor
-@Schema(description = "Сведения о новом товаре в заказе")
+@Schema(name = "Сведения о новом товаре в заказе")
 public class NewOrderItemDto {
     @NotNull
     @JsonProperty("order_id")

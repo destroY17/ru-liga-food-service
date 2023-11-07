@@ -75,7 +75,7 @@ public class OAuth2AuthServerSecurityConfiguration {
 
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gateway")
-                .clientSecret("{noop}secret")
+                .clientSecret("secret")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
@@ -87,7 +87,6 @@ public class OAuth2AuthServerSecurityConfiguration {
         JdbcRegisteredClientRepository registeredClientRepository =
                 new JdbcRegisteredClientRepository(jdbcTemplate);
         registeredClientRepository.save(registeredClient);
-
 
         return registeredClientRepository;
     }

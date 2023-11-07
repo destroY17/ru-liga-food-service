@@ -23,8 +23,9 @@ public class QueueListener {
     @Transactional
     public void handleOrderToDelivery(OrderActionDto orderAction) {
         orderAction.setStatus(OrderStatus.DELIVERY_PENDING);
+        log.info("Order id={} has arrived to delivery", orderAction.getOrderId());
         deliveryClient.updateOrderStatus(orderAction);
-        deliveryService.notifyCouriers(orderAction.getOrderId());
-        log.info("Order id={} send to delivery", orderAction.getOrderId());
+
+        deliveryService.assignCourier(orderAction.getOrderId());
     }
 }

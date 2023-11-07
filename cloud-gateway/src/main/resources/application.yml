@@ -6,26 +6,31 @@ spring:
     gateway:
       routes:
         - id: order-service
-          uri: http://127.0.0.1:8084/orders
+          uri: http://127.0.0.1:8084
           predicates:
-            - Path=/orders/**
+            - Path=/order-service/**
           filters:
             - TokenRelay=
             - RemoveRequestHeader=Cookie
+            - RewritePath=/order-service/(?<path>.*),/$\{path}
+
         - id: kitchen-service
-          uri: http://127.0.0.1:8082/kitchen
+          uri: http://127.0.0.1:8082
           predicates:
-            - Path=/kitchen/**
+            - Path=/kitchen-service/**
           filters:
             - TokenRelay=
             - RemoveRequestHeader=Cookie
+            - RewritePath=/kitchen-service/(?<path>.*),/$\{path}
+
         - id: delivery-service
-          uri: http://127.0.0.1:8081/deliveries
+          uri: http://127.0.0.1:8081
           predicates:
-            - Path=/deliveries/**
+            - Path=/delivery-service/**
           filters:
             - TokenRelay=
             - RemoveRequestHeader=Cookie
+            - RewritePath=/delivery-service/(?<path>.*),/$\{path}
 
   security:
     oauth2:
@@ -41,3 +46,15 @@ spring:
         provider:
           spring:
             issuer-uri: http://localhost:9000
+
+springdoc:
+  swagger-ui:
+    urls[0]:
+      name: Order service
+      url: /order-service/v3/api-docs
+    urls[1]:
+      name: Kitchen service
+      url: /kitchen-service/v3/api-docs
+    urls[2]:
+      name: Delivery service
+      url: /delivery-service/v3/api-docs

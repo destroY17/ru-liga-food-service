@@ -7,8 +7,8 @@ import ru.liga.dto.OrderActionDto;
 
 import javax.validation.Valid;
 
-@FeignClient(name = "delivery-client", url = "localhost:8084/order-service")
-public interface DeliveryClient {
+@FeignClient(name = "kitchen-service", url = "localhost:8084/order-service")
+public interface KitchenClient {
     @PostMapping("/orders/update")
     void updateOrderStatus(@Valid @RequestBody OrderActionDto orderAction);
 }

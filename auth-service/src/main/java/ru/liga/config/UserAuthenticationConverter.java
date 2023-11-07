@@ -17,7 +17,7 @@ public class UserAuthenticationConverter implements AuthenticationConverter {
 
     @Override
     public Authentication convert(HttpServletRequest request) {
-        UserDto userDto = null;
+        UserDto userDto;
         try {
             userDto = MAPPER.readValue(request.getInputStream(), UserDto.class);
         } catch (IOException e) {

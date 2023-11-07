@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @Builder
-@Schema(description = "Сведения о новом заказе")
+@Schema(name = "Сведения о новом заказе")
 public class NewOrderDto {
     @NotNull
     @JsonProperty("restaurant_id")

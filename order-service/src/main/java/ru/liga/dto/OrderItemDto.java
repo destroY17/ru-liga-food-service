@@ -10,7 +10,7 @@ import javax.validation.constraints.Positive;
 
 @Data
 @AllArgsConstructor
-@Schema(description = "Сведения о товаре в заказе")
+@Schema(name = "Сведения о товаре в заказе")
 public class OrderItemDto {
     @Positive
     private int quantity;

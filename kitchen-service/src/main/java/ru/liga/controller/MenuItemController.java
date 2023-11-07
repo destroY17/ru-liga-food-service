@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/menu-items")
+@RequestMapping("kitchen-service/menu-items")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "API для работы с товарами меню")

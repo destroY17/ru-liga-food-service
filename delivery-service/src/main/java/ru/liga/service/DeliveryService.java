@@ -14,5 +14,5 @@ public interface DeliveryService {
 
     Courier findCourierById(Long id);
 
-    void notifyCouriers(Long orderId);
+    void assignCourier(Long orderId);
 }

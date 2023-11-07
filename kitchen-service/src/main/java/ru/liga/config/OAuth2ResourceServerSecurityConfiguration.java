@@ -7,7 +7,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * OAuth конфигурация.
- *
  */
 @EnableWebSecurity
 public class OAuth2ResourceServerSecurityConfiguration {
@@ -15,14 +14,14 @@ public class OAuth2ResourceServerSecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .mvcMatcher("/**")
                 .authorizeRequests()
-                .mvcMatchers("/**")
-                .access("hasAuthority('SCOPE_message.read')")
+                .mvcMatchers("/**").permitAll()
+                //.access("hasAuthority('SCOPE_message.read')")
                 .and()
                 .oauth2ResourceServer()
                 .jwt();
         return http.build();
     }
-
 }

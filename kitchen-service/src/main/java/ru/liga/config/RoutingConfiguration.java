@@ -9,10 +9,24 @@ public class RoutingConfiguration {
 
     @Bean
     public Declarables kitchenToNotification() {
-        Queue kitchenToNotification = new Queue("kitchenToNotification", false);
+        String acceptQueue = "kitchenAcceptToNotification";
+        String deniedQueue = "kitchenDeniedToNotification";
+        String completeQueue = "kitchenCompleteToNotification";
+
+        Queue kitchenAcceptToNotification = new Queue(acceptQueue, false);
+        Queue kitchenDeniedToNotification = new Queue(deniedQueue, false);
+        Queue kitchenCompleteToNotification = new Queue(completeQueue, false);
+
         DirectExchange directExchange = new DirectExchange("directExchange");
 
-        return new Declarables(kitchenToNotification, directExchange,
-                BindingBuilder.bind(kitchenToNotification).to(directExchange).with("kitchenToNotification"));
+        return new Declarables(
+                kitchenAcceptToNotification,
+                kitchenDeniedToNotification,
+                kitchenCompleteToNotification,
+                directExchange,
+                BindingBuilder.bind(kitchenAcceptToNotification).to(directExchange).with(acceptQueue),
+                BindingBuilder.bind(kitchenDeniedToNotification).to(directExchange).with(deniedQueue),
+                BindingBuilder.bind(kitchenCompleteToNotification).to(directExchange).with(completeQueue)
+        );
     }
 }

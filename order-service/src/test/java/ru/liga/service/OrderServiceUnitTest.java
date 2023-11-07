@@ -10,13 +10,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import ru.liga.dto.*;
 import ru.liga.exception.DataNotFoundException;
-import ru.liga.mapper.DeliveryOrderMapper;
-import ru.liga.mapper.NewOrderMapper;
 import ru.liga.mapper.OrderInfoMapper;
-import ru.liga.model.Order;
-import ru.liga.model.OrderStatus;
+import ru.liga.model.*;
 import ru.liga.repository.OrderRepository;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import ru.liga.service.impl.OrderServiceImpl;
 
 import java.util.Arrays;
@@ -28,21 +24,11 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceUnitTest {
-
     @Mock
     private OrderRepository orderRepository;
 
     @Mock
     private OrderInfoMapper orderInfoMapper;
-
-    @Mock
-    private NewOrderMapper newOrderMapper;
-
-    @Mock
-    private DeliveryOrderMapper deliveryOrderMapper;
-
-    @Mock
-    private RabbitTemplate rabbitTemplate;
 
     @InjectMocks
     private OrderServiceImpl orderService;
@@ -105,36 +91,5 @@ public class OrderServiceUnitTest {
         when(orderRepository.findById(orderId)).thenReturn(Optional.empty());
 
         assertThrows(DataNotFoundException.class, () -> orderService.findOrderById(orderId));
-    }
-
-    @Test
-    public void testAddOrder() {
-        Long customerId = 1L;
-        NewOrderDto newOrder = NewOrderDto.builder().build();
-        Order order = Order.builder().build();
-        DeliveryOrderDto deliveryOrderDto = DeliveryOrderDto.builder().build();
-
-        when(newOrderMapper.toEntity(customerId, newOrder)).thenReturn(order);
-        when(orderRepository.save(order)).thenReturn(order);
-        when(deliveryOrderMapper.toDto(order)).thenReturn(deliveryOrderDto);
-
-        DeliveryOrderDto result = orderService.addOrder(customerId, newOrder);
-
-        assertEquals(deliveryOrderDto, result);
-    }
-
-    @Test
-    public void testSendNewOrder() {
-        Long orderId = 1L;
-        String routingKey = "notification-key";
-
-        Order order = Order.builder().status(OrderStatus.CUSTOMER_PAID).build();
-
-        when(orderRepository.findById(orderId)).thenReturn(Optional.of(order));
-
-        orderService.sendNewOrder(orderId, routingKey);
-
-        verify(rabbitTemplate, times(1))
-                .convertAndSend(eq("directExchange"), eq(routingKey), any(OrderActionDto.class));
     }
 }

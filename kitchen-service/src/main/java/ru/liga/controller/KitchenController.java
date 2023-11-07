@@ -5,13 +5,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.liga.dto.OrderActionDto;
 import ru.liga.service.KitchenService;
 
-import javax.validation.Valid;
-
 @RestController
-@RequestMapping("/kitchen")
+@RequestMapping("/kitchen-service")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "API обработки заказа и его подготовки к доставке")
@@ -37,13 +34,5 @@ public class KitchenController {
     public void completeOrder(@PathVariable Long orderId) {
         log.info("Received POST request to complete order id={}", orderId);
         kitchenService.completeOrder(orderId, "kitchenToNotification");
-    }
-
-    @Operation(summary = "Обновить статус заказа")
-    @PostMapping("/update")
-    public void updateOrderStatus(@Valid @RequestBody OrderActionDto orderActionDto) {
-        log.info("Received POST request to update status of order id={}, updated status={}",
-                orderActionDto.getOrderId(), orderActionDto.getStatus());
-        kitchenService.updateOrderStatus(orderActionDto);
     }
 }

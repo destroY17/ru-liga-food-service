@@ -15,6 +15,7 @@ import ru.liga.service.DeliveryService;
 import java.util.List;
 
 @RestController
+@RequestMapping("/delivery-service")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "API доставки заказа")
