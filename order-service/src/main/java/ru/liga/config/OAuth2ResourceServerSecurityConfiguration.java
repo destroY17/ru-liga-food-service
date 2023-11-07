@@ -17,8 +17,8 @@ public class OAuth2ResourceServerSecurityConfiguration {
                 .csrf().disable()
                 .mvcMatcher("/**")
                 .authorizeRequests()
-                .mvcMatchers("/**").permitAll()
-                //.access("hasAuthority('SCOPE_message.read')")
+                .mvcMatchers("/**")
+                .access("hasAuthority('SCOPE_message.read')")
                 .and()
                 .oauth2ResourceServer()
                 .jwt();
