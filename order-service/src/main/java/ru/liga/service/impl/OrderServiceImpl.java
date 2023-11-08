@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void refundOfFunds(UUID orderId) {
         Order order = getOrderById(orderId);
-        OrderUtil.correctStatusOrElseThrow(order.getStatus(), OrderStatus.DELIVERY_DENIED);
+        OrderUtil.correctStatusOrElseThrow(order.getStatus(), OrderStatus.KITCHEN_DENIED);
 
         paymentService.refundOfFunds(orderId);
     }

@@ -10,7 +10,7 @@
 			"name": "kitchen",
 			"item": [
 				{
-					"name": "/kitchen/accept/{orderId}",
+					"name": "/accept/{orderId}",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -31,7 +31,7 @@
 					"response": []
 				},
 				{
-					"name": "/kitchen/deny/{orderId}",
+					"name": "/deny/{orderId}",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -52,7 +52,7 @@
 					"response": []
 				},
 				{
-					"name": "/kitchen/complete/{orderId}",
+					"name": "/complete/{orderId}",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -67,35 +67,6 @@
 								"kitchen",
 								"complete",
 								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/kitchen/update",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"order_id\" : 1,\r\n    \"order_status\" : \"KITCHEN_ACCEPTED\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8082/kitchen/update",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"kitchen",
-								"update"
 							]
 						}
 					},

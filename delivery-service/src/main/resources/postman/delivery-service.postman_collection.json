@@ -7,36 +7,93 @@
 	},
 	"item": [
 		{
-			"name": "/couriers",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			"name": "couriers",
+			"item": [
+				{
+					"name": "/couriers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/delivery-service/couriers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"delivery-service",
+								"couriers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/couriers/{id}",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "/couriers/{courierId}/take-order/{orderId}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/delivery-service/couriers/2/take-order/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"delivery-service",
+								"couriers",
+								"2",
+								"take-order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "/deliveries?status",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "/deliveries",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "/couriers/{id}",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			"name": "deliveries",
+			"item": [
+				{
+					"name": "/deliveries",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "/deliveries?status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pick/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pick",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

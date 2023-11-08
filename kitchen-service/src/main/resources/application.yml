@@ -21,8 +21,3 @@ springdoc:
     oauth:
       client-id: gateway
       client-secret: secret
-
-feign:
-  oauth2:
-    enabled: true
-    clientRegistrationId: keycloak

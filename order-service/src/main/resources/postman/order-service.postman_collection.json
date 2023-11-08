@@ -74,7 +74,7 @@
 					"response": []
 				},
 				{
-					"name": "/orders/pay/{orderId}",
+					"name": "/orders/pay/{id}",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -101,21 +101,29 @@
 					"response": []
 				},
 				{
-					"name": "/orders/sendToNotification/{id}",
+					"name": "/update",
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"order_id\" : 1,\r\n    \"order_status\" : \"CUSTOMER_PAID\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8084/orders/sendToNotification/6",
+							"raw": "http://localhost:8084/order-service/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8084",
 							"path": [
-								"orders",
-								"sendToNotification",
-								"6"
+								"order-service",
+								"update"
 							]
 						}
 					},
@@ -131,14 +139,24 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"order_id\" : 1,\r\n    \"restaurant_menu_item_id\" : 2,\r\n    \"quantity\" : 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8084/order-items",
+							"raw": "http://localhost:8084/order-service/order-items",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8084",
 							"path": [
+								"order-service",
 								"order-items"
 							]
 						}
@@ -151,15 +169,16 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8084/order-items/1",
+							"raw": "http://localhost:8084/order-service/order-items/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8084",
 							"path": [
+								"order-service",
 								"order-items",
-								"1"
+								"4"
 							]
 						}
 					},

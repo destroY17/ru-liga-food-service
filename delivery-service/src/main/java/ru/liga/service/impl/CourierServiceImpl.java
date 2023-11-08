@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.liga.batismapper.CourierMapper;
-import ru.liga.client.DeliveryClient;
 import ru.liga.dto.DeliveryDto;
 import ru.liga.dto.OrderActionDto;
 import ru.liga.exception.DataNotFoundException;
@@ -29,7 +28,6 @@ import java.util.UUID;
 @Slf4j
 public class CourierServiceImpl implements CourierService {
     private final RabbitService rabbitService;
-    private final DeliveryClient deliveryClient;
 
     private final CourierMapper courierMapper;
     private final OrderRepository orderRepository;
@@ -58,14 +56,12 @@ public class CourierServiceImpl implements CourierService {
 
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new DataNotFoundException("Order id=" + orderId + " not found"));
-
         OrderUtil.correctStatusOrElseThrow(order.getStatus(), OrderStatus.DELIVERY_PICKING);
 
         order.setCourier(courier);
 
         OrderActionDto orderAction = new OrderActionDto(orderId, OrderStatus.DELIVERY_DELIVERING);
 
-        //deliveryClient.updateOrderStatus(orderAction);
         orderRepository.updateOrderByStatus(orderId, orderAction.getStatus());
 
         courier.setStatus(CourierStatus.ACTIVE);
@@ -86,7 +82,7 @@ public class CourierServiceImpl implements CourierService {
         courier.setStatus(CourierStatus.INACTIVE);
 
         OrderActionDto orderAction = new OrderActionDto(orderId, OrderStatus.DELIVERY_COMPLETE);
-        //deliveryClient.updateOrderStatus(orderAction);
+
         orderRepository.updateOrderByStatus(orderId, orderAction.getStatus());
 
         rabbitService.sendDeliveryStatus(orderAction, DeliveryQueue.DELIVERY_COMPLETE);
