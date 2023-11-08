@@ -7,7 +7,7 @@ import ru.liga.model.Customer;
 import ru.liga.util.DistanceCalculator;
 
 @Component
-public class CustomerMapper {
+public class CustomerDeliveryMapper {
     public CustomerDeliveryDto toDto(Customer entity, Courier courier) {
         double distance = DistanceCalculator.calculateDistance(entity.getAddress(), courier.getCoordinates());
         return new CustomerDeliveryDto(entity.getAddress(), distance);

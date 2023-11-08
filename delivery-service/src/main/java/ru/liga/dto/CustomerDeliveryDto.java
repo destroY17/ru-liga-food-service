@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@Schema(name = "Данные о местоположении клиента")
+@Schema(name = "Данные о местоположении клиента относительно курьера")
 public class CustomerDeliveryDto {
     private String address;
     private double distance;

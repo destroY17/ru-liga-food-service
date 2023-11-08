@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DeliveryToOrderMapper {
     private final RestaurantDeliveryMapper restaurantDeliveryMapper;
-    private final CustomerMapper customerMapper;
+    private final CustomerDeliveryMapper customerDeliveryMapper;
 
     public DeliveryDto toDto(Order entity) {
         return new DeliveryDto(
                 entity.getId(),
                 restaurantDeliveryMapper.toDto(entity.getRestaurant(), entity.getCourier()),
-                customerMapper.toDto(entity.getCustomer(), entity.getCourier()),
+                customerDeliveryMapper.toDto(entity.getCustomer(), entity.getCourier()),
                 calculatePayment(entity.getOrderItems())
         );
     }

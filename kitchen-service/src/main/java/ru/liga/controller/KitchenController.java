@@ -7,14 +7,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.liga.service.KitchenService;
 
+/**
+ * Контроллер приготовления заказа
+ */
 @RestController
 @RequestMapping("/kitchen-service")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "API обработки заказа и его подготовки к доставке")
+@Tag(name = "API приготовления заказа")
 public class KitchenController {
     private final KitchenService kitchenService;
 
+    /**
+     * Принять заказ для приготовления
+     * @param orderId идентификатор заказа
+     */
     @Operation(summary = "Принять заказ")
     @PostMapping("/accept/{orderId}")
     public void acceptOrder(@PathVariable Long orderId) {
@@ -22,13 +29,21 @@ public class KitchenController {
         kitchenService.acceptOrder(orderId);
     }
 
-    @Operation(summary = "Отменить заказ")
+    /**
+     * Отклонить заказ
+     * @param orderId идентификатор заказа
+     */
+    @Operation(summary = "Отклонить заказ")
     @PostMapping("/deny/{orderId}")
     public void denyOrder(@PathVariable Long orderId) {
         log.info("Received POST request to deny order id={}", orderId);
         kitchenService.denyOrder(orderId);
     }
 
+    /**
+     * Завершить приготовление заказа, подготовка к доставке
+     * @param orderId идентификатор заказа
+     */
     @Operation(summary = "Завершение подготовки заказа")
     @PostMapping("/complete/{orderId}")
     public void completeOrder(@PathVariable Long orderId) {

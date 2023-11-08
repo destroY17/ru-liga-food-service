@@ -11,6 +11,9 @@ import ru.liga.service.CourierService;
 
 import java.util.List;
 
+/**
+ * Контроллер для взамодействия с курьерами
+ */
 @RestController
 @RequestMapping("/delivery-service/couriers")
 @RequiredArgsConstructor
@@ -19,6 +22,10 @@ import java.util.List;
 public class CourierController {
     private final CourierService courierService;
 
+    /**
+     * Найти всех курьеров
+     * @return список курьеров
+     */
     @Operation(summary = "Найти всех курьеров")
     @GetMapping
     public List<Courier> findAllCouriers() {
@@ -26,6 +33,11 @@ public class CourierController {
         return courierService.findAllCouriers();
     }
 
+    /**
+     * Найти курьера по идентификатору
+     * @param id идентификатор курьера
+     * @return курьер
+     */
     @Operation(summary = "Найти курьера по идентификатору")
     @GetMapping("/{id}")
     public Courier findCourierById(@PathVariable Long id) {
@@ -33,6 +45,12 @@ public class CourierController {
         return courierService.findCourierById(id);
     }
 
+    /**
+     * Принятие курьером заказа для доставки
+     * @param courierId идентификатор курьера
+     * @param orderId идентификатор заказа
+     * @return сведения о заказе, необходимые курьеру
+     */
     @Operation(summary = "Принять заказ")
     @PostMapping("{courierId}/take/{orderId}")
     public DeliveryDto takeOrder(@PathVariable Long courierId, @PathVariable Long orderId) {
@@ -40,6 +58,10 @@ public class CourierController {
         return courierService.takeOrder(courierId, orderId);
     }
 
+    /**
+     * Завершение доставки заказа
+     * @param orderId идентификатор заказа
+     */
     @Operation(summary = "Завершить доставку заказа")
     @PostMapping("/complete/{orderId}")
     public void completeDelivery(@PathVariable Long orderId) {

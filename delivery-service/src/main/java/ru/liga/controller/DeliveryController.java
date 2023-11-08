@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.liga.dto.DeliveryDto;
 import ru.liga.service.DeliveryService;
 
+/**
+ * Конторллер взаимодействия с заказами, готовыми к доставке
+ */
 @RestController
 @RequestMapping("/delivery-service/deliveries")
 @RequiredArgsConstructor
@@ -19,6 +22,11 @@ import ru.liga.service.DeliveryService;
 public class DeliveryController {
     private final DeliveryService deliveryService;
 
+    /**
+     * Поиск доступных для доставки заказов
+     * @param pageable настройка страниц
+     * @return список заказов с пагинацией
+     */
     @Operation(summary = "Найти доступные для доставки заказы")
     @GetMapping
     public Page<DeliveryDto> findAvailableDeliveries(@PageableDefault Pageable pageable) {
@@ -26,6 +34,10 @@ public class DeliveryController {
         return deliveryService.findAvailableDeliveries(pageable);
     }
 
+    /**
+     * Собрать заказ для подготовки к доставке
+     * @param orderId идентификатор заказа
+     */
     @Operation(summary = "Собрать заказ")
     @PostMapping("/pick/{orderId}")
     public void pickOrder(@PathVariable Long orderId) {
