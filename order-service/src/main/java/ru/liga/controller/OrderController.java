@@ -16,6 +16,7 @@ import ru.liga.service.OrderService;
 
 import javax.validation.Valid;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Контроллер для работы с заказами
@@ -30,6 +31,7 @@ public class OrderController {
 
     /**
      * Поиск всех заказов(по статусу - опционально) постранично
+     *
      * @param pageable настройка страниц
      * @param status статус заказа (необязательный параметр)
      * @return список заказов с пагинацией
@@ -51,6 +53,7 @@ public class OrderController {
 
     /**
      * Поиск заказов по идентификатору
+     *
      * @param id идентификатор заказа
      * @return заказ с заданным идентификатором
      */
@@ -62,7 +65,7 @@ public class OrderController {
     @ApiResponse(responseCode = "404", description = "Order not found")
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @GetMapping("/{id}")
-    public OrderInfo findOrderById(@PathVariable Long id) {
+    public OrderInfo findOrderById(@PathVariable UUID id) {
         log.info("Received GET request to find order by id={}", id);
         return orderService.findOrderById(id);
     }
@@ -101,7 +104,7 @@ public class OrderController {
     @ApiResponse(responseCode = "404", description = "Order not found")
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PostMapping("/pay/{orderId}")
-    public void payForOrder(@PathVariable Long orderId, @RequestParam String paymentUrl) {
+    public void payForOrder(@PathVariable UUID orderId, @RequestParam String paymentUrl) {
         log.info("Received POST request to pay for order id={}", orderId);
         orderService.payForOrder(orderId, paymentUrl);
     }

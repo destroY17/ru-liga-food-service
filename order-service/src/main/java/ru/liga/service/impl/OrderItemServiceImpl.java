@@ -13,6 +13,7 @@ import ru.liga.repository.OrderRepository;
 import ru.liga.service.OrderItemService;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,10 +24,13 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public OrderItem addOrderItem(NewOrderItemDto newOrderItemDto) {
-        Order order = orderRepository.findById(newOrderItemDto.getOrderId())
-                .orElseThrow(() -> new DataNotFoundException("Order is not found"));
-        RestaurantMenuItem menuItem = menuItemRepository.findById(newOrderItemDto.getRestaurantMenuItemId())
-                .orElseThrow(() -> new DataNotFoundException("Menu item is not found"));
+        UUID orderId = newOrderItemDto.getOrderId();
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new DataNotFoundException("Order id=" + orderId + " not found"));
+
+        Long menuItemId = newOrderItemDto.getRestaurantMenuItemId();
+        RestaurantMenuItem menuItem = menuItemRepository.findById(menuItemId)
+                .orElseThrow(() -> new DataNotFoundException("Menu item id=" + menuItemId + " not found"));
 
         return orderItemRepository.save(
                 OrderItem.builder()

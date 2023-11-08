@@ -8,6 +8,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import ru.liga.dto.OrderActionDto;
 
+import java.util.UUID;
+
 import static ru.liga.queue.ListenQueue.*;
 import static ru.liga.queue.NotifyQueue.*;
 
@@ -47,8 +49,9 @@ public class QueueListener {
     }
 
     @RabbitListener(queues = NOTIFY_COURIERS_QUEUE)
-    public void handleNotifyCouriers(Long orderId) {
-        System.out.printf("Order id=%d is available to delivery", orderId);
+    public void handleNotifyCouriers(UUID orderId) {
+        //Imitation notify for couriers
+        System.out.println("Order id=" + orderId + " is available to delivery");
         log.info("Couriers are notified about order id={}", orderId);
     }
 }

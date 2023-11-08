@@ -18,6 +18,7 @@ import ru.liga.service.impl.OrderServiceImpl;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -72,7 +73,7 @@ public class OrderServiceUnitTest {
 
     @Test
     public void testFindOrderById() {
-        Long orderId = 1L;
+        UUID orderId = UUID.randomUUID();
         Order order = Order.builder().build();
         OrderInfo orderInfo = OrderInfo.builder().build();
 
@@ -86,7 +87,7 @@ public class OrderServiceUnitTest {
 
     @Test
     public void testFindOrderById_WhenNotFound() {
-        Long orderId = 1L;
+        UUID orderId = UUID.randomUUID();
 
         when(orderRepository.findById(orderId)).thenReturn(Optional.empty());
 

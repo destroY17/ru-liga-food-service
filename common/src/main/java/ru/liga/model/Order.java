@@ -2,10 +2,12 @@ package ru.liga.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 @Table(name = "orders")
 @Entity
@@ -16,9 +18,9 @@ import java.util.List;
 public class Order {
     @Id
     @Column(name = "id", nullable = false)
-    @SequenceGenerator(name = "orders_seq_gen", sequenceName = "orders_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orders_seq_gen")
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)

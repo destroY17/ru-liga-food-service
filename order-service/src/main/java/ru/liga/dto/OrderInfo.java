@@ -8,6 +8,7 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +16,7 @@ import java.util.List;
 @Schema(name = "Сведения о заказе для клиента")
 public class OrderInfo {
     @JsonProperty("order_id")
-    private Long orderId;
+    private UUID orderId;
     private RestaurantDto restaurant;
     private Timestamp timestamp;
     private List<MenuItemInOrderDto> items;

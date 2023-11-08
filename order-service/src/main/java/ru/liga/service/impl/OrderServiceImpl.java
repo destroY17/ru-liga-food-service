@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -53,14 +54,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderInfo findOrderById(Long id) {
+    public OrderInfo findOrderById(UUID id) {
         Order order = getOrderById(id);
         return orderInfoMapper.toDto(order);
     }
 
-    private Order getOrderById(Long id) {
+    private Order getOrderById(UUID id) {
         return orderRepository.findById(id)
-                .orElseThrow(() -> new DataNotFoundException(String.format("Order id=%d is not found", id)));
+                .orElseThrow(() -> new DataNotFoundException("Order id=" + id+ " not found"));
     }
 
     @Override
@@ -70,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void refundOfFunds(Long orderId) {
+    public void refundOfFunds(UUID orderId) {
         Order order = getOrderById(orderId);
         OrderUtil.correctStatusOrElseThrow(order.getStatus(), OrderStatus.DELIVERY_DENIED);
 
@@ -84,12 +85,12 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public DeliveryOrderDto addOrder(Long customerId, NewOrderDto newOrder) {
         Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() ->
-                        new DataNotFoundException(String.format("Customer id=%d not found", customerId)));
+                .orElseThrow(() -> new DataNotFoundException(String.format("Customer id=%d not found",
+                        customerId)));
+
         Restaurant restaurant = restaurantRepository.findById(newOrder.getRestaurantId())
-                .orElseThrow(() ->
-                        new DataNotFoundException(String.format("Restaurant id=%d not found",
-                                newOrder.getRestaurantId())));
+                .orElseThrow(() -> new DataNotFoundException(String.format("Restaurant id=%d not found",
+                        newOrder.getRestaurantId())));
 
         Order order = Order.builder()
                 .customer(customer)
@@ -105,8 +106,7 @@ public class OrderServiceImpl implements OrderService {
         for (OrderItemDto menuItem : menuItems) {
             RestaurantMenuItem restaurantMenuItem =
                     menuItemRepository.findById(menuItem.getMenuItemId())
-                            .orElseThrow(() ->
-                                    new DataNotFoundException(String.format("Menu item id=%d not found",
+                            .orElseThrow(() -> new DataNotFoundException(String.format("Menu item id=%d not found",
                                             menuItem.getMenuItemId())));
 
             orderItems.add(OrderItem.builder()
@@ -124,7 +124,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void payForOrder(Long orderId, String paymentUrl) {
+    public void payForOrder(UUID orderId, String paymentUrl) {
         Order order = getOrderById(orderId);
         OrderUtil.correctStatusOrElseThrow(order.getStatus(), OrderStatus.CUSTOMER_CREATED);
         orderRepository.updateOrderByStatus(orderId, OrderStatus.CUSTOMER_PAID);

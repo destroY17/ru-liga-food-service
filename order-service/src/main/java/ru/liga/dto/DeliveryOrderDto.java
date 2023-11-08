@@ -8,6 +8,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Schema(name = "Сведения о доставки заказа для покупателя")
 public class DeliveryOrderDto {
     @NotNull
-    private Long id;
+    private UUID id;
     @Schema(name = "URL для оплаты заказа")
     @NotBlank
     private String secretPaymentUrl;

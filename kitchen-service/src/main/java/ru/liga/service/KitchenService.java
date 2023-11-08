@@ -1,10 +1,12 @@
 package ru.liga.service;
 
+import java.util.UUID;
+
 public interface KitchenService {
-    void acceptOrder(Long orderId);
+    void acceptOrder(UUID orderId);
 
-    void completeOrder(Long orderId, String routingKey);
+    void completeOrder(UUID orderId, String routingKey);
 
-    void denyOrder(Long orderId);
+    void denyOrder(UUID orderId);
 
 }

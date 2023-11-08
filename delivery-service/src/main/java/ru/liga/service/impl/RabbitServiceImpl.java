@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import ru.liga.dto.OrderActionDto;
 import ru.liga.service.RabbitService;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -21,7 +23,7 @@ public class RabbitServiceImpl implements RabbitService {
     }
 
     @Override
-    public void sendDeliveryInfo(Long orderId, String deliveryAction) {
+    public void sendDeliveryInfo(UUID orderId, String deliveryAction) {
         rabbitTemplate.convertAndSend("directExchange", deliveryAction, orderId);
         log.info("Delivery info id={} send to notification-service", orderId);
     }

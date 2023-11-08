@@ -5,18 +5,20 @@ import org.springframework.data.domain.Pageable;
 import ru.liga.dto.*;
 import ru.liga.model.OrderStatus;
 
+import java.util.UUID;
+
 public interface OrderService {
     Page<OrderInfo> findAllOrders(Pageable page);
 
     Page<OrderInfo> findOrdersByStatus(Pageable pageable, OrderStatus status);
 
-    OrderInfo findOrderById(Long id);
+    OrderInfo findOrderById(UUID id);
 
     DeliveryOrderDto addOrder(Long customerId, NewOrderDto newOrder);
 
-    void payForOrder(Long orderId, String paymentUrl);
+    void payForOrder(UUID orderId, String paymentUrl);
 
     void updateOrderStatus(OrderActionDto orderAction);
 
-    void refundOfFunds(Long orderId);
+    void refundOfFunds(UUID orderId);
 }

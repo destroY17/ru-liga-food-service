@@ -6,13 +6,14 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @Schema(name = "Сведения о заказе для курьера")
 public class DeliveryDto {
     @NotNull
-    private Long orderId;
+    private UUID orderId;
     private RestaurantDeliveryDto restaurant;
     private CustomerDeliveryDto customer;
     @Positive

@@ -13,6 +13,8 @@ import ru.liga.repository.OrderRepository;
 import ru.liga.service.KitchenService;
 import ru.liga.util.OrderUtil;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -23,7 +25,7 @@ public class KitchenServiceImpl implements KitchenService {
     private final KitchenClient kitchenClient;
 
     @Override
-    public void acceptOrder(Long orderId) {
+    public void acceptOrder(UUID orderId) {
         correctStatus(orderId, OrderStatus.CUSTOMER_PAID);
 
         OrderActionDto orderAction = new OrderActionDto(orderId, OrderStatus.KITCHEN_ACCEPTED);
@@ -34,7 +36,7 @@ public class KitchenServiceImpl implements KitchenService {
     }
 
     @Override
-    public void completeOrder(Long orderId, String routingKey) {
+    public void completeOrder(UUID orderId, String routingKey) {
         correctStatus(orderId, OrderStatus.KITCHEN_ACCEPTED);
 
         OrderActionDto orderAction = new OrderActionDto(orderId, OrderStatus.KITCHEN_PREPARING);
@@ -45,7 +47,7 @@ public class KitchenServiceImpl implements KitchenService {
     }
 
     @Override
-    public void denyOrder(Long orderId) {
+    public void denyOrder(UUID orderId) {
         correctStatus(orderId, OrderStatus.CUSTOMER_PAID);
 
         OrderActionDto orderAction = new OrderActionDto(orderId, OrderStatus.KITCHEN_DENIED);
@@ -54,9 +56,9 @@ public class KitchenServiceImpl implements KitchenService {
         rabbitService.sendOrder(orderAction, "kitchenDeniedToNotification");
     }
 
-    private void correctStatus(Long orderId, OrderStatus correctStatus) {
+    private void correctStatus(UUID orderId, OrderStatus correctStatus) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new DataNotFoundException(String.format("Order id=%d not found",orderId)));
+                .orElseThrow(() -> new DataNotFoundException("Order id=" + orderId+ " not found"));
         OrderUtil.correctStatusOrElseThrow(order.getStatus(), correctStatus);
     }
 }

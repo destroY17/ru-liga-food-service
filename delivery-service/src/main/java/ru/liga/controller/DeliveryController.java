@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.liga.dto.DeliveryDto;
 import ru.liga.service.DeliveryService;
 
+import java.util.UUID;
+
 /**
  * Конторллер взаимодействия с заказами, готовыми к доставке
  */
@@ -40,7 +42,7 @@ public class DeliveryController {
      */
     @Operation(summary = "Собрать заказ")
     @PostMapping("/pick/{orderId}")
-    public void pickOrder(@PathVariable Long orderId) {
+    public void pickOrder(@PathVariable UUID orderId) {
         log.info("Received POST request to picking order id={}", orderId);
         deliveryService.pickOrder(orderId);
     }

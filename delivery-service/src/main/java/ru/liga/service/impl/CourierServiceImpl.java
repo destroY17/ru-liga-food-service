@@ -22,6 +22,7 @@ import ru.liga.service.RabbitService;
 import ru.liga.util.OrderUtil;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +49,7 @@ public class CourierServiceImpl implements CourierService {
 
     @Override
     @Transactional
-    public DeliveryDto takeOrder(Long courierId, Long orderId) {
+    public DeliveryDto takeOrder(Long courierId, UUID orderId) {
         Courier courier = findCourierById(courierId);
         if (courier.getStatus() == CourierStatus.ACTIVE) {
             throw new IncorrectCourierStatusException("Courier id=" + courierId + " has status=" +
@@ -76,7 +77,7 @@ public class CourierServiceImpl implements CourierService {
 
     @Override
     @Transactional
-    public void completeDelivery(Long orderId) {
+    public void completeDelivery(UUID orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new DataNotFoundException("Order id=" + orderId + " not found"));
         OrderUtil.correctStatusOrElseThrow(order.getStatus(), OrderStatus.DELIVERY_DELIVERING);

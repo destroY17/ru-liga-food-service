@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import ru.liga.model.OrderStatus;
 
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 
 @Data
@@ -17,8 +18,7 @@ import javax.validation.constraints.NotNull;
 public class OrderActionDto {
     @NotNull
     @JsonProperty("order_id")
-    private Long orderId;
-    
+    private UUID orderId;
     @JsonProperty("order_status")
     private OrderStatus status;
 }

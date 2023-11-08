@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -14,7 +15,7 @@ import javax.validation.constraints.Positive;
 public class NewOrderItemDto {
     @NotNull
     @JsonProperty("order_id")
-    private Long orderId;
+    private UUID orderId;
     @NotNull
     @JsonProperty("restaurant_menu_item_id")
     private Long restaurantMenuItemId;

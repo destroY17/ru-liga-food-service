@@ -26,6 +26,7 @@ public class OrderItemController {
 
     /**
      * Добавление нового товара в заказ
+     *
      * @param newOrderItemDto сведения о новом товаре
      * @return добавленный в заказ товар
      */
@@ -44,6 +45,7 @@ public class OrderItemController {
 
     /**
      * Удаление товара из заказа
+     *
      * @param id идентификатор товара
      */
     @Operation(summary = "Удалить по идентификатору")

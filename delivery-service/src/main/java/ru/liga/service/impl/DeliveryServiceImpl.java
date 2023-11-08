@@ -18,6 +18,8 @@ import ru.liga.repository.OrderRepository;
 import ru.liga.service.DeliveryService;
 import ru.liga.util.OrderUtil;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -36,7 +38,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     @Transactional
-    public void pickOrder(Long orderId) {
+    public void pickOrder(UUID orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new DataNotFoundException("Order id=" + orderId + "not found"));
         OrderUtil.correctStatusOrElseThrow(order.getStatus(), OrderStatus.DELIVERY_PENDING);

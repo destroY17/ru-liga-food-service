@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.liga.service.KitchenService;
 
+import java.util.UUID;
+
 /**
  * Контроллер приготовления заказа
  */
@@ -24,7 +26,7 @@ public class KitchenController {
      */
     @Operation(summary = "Принять заказ")
     @PostMapping("/accept/{orderId}")
-    public void acceptOrder(@PathVariable Long orderId) {
+    public void acceptOrder(@PathVariable UUID orderId) {
         log.info("Received POST request to accept order id={}", orderId);
         kitchenService.acceptOrder(orderId);
     }
@@ -35,7 +37,7 @@ public class KitchenController {
      */
     @Operation(summary = "Отклонить заказ")
     @PostMapping("/deny/{orderId}")
-    public void denyOrder(@PathVariable Long orderId) {
+    public void denyOrder(@PathVariable UUID orderId) {
         log.info("Received POST request to deny order id={}", orderId);
         kitchenService.denyOrder(orderId);
     }
@@ -46,7 +48,7 @@ public class KitchenController {
      */
     @Operation(summary = "Завершение подготовки заказа")
     @PostMapping("/complete/{orderId}")
-    public void completeOrder(@PathVariable Long orderId) {
+    public void completeOrder(@PathVariable UUID orderId) {
         log.info("Received POST request to complete order id={}", orderId);
         kitchenService.completeOrder(orderId, "kitchenToNotification");
     }

@@ -10,6 +10,7 @@ import ru.liga.model.Courier;
 import ru.liga.service.CourierService;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Контроллер для взамодействия с курьерами
@@ -53,7 +54,7 @@ public class CourierController {
      */
     @Operation(summary = "Принять заказ")
     @PostMapping("{courierId}/take/{orderId}")
-    public DeliveryDto takeOrder(@PathVariable Long courierId, @PathVariable Long orderId) {
+    public DeliveryDto takeOrder(@PathVariable Long courierId, @PathVariable UUID orderId) {
         log.info("Received POST request to take order");
         return courierService.takeOrder(courierId, orderId);
     }
@@ -64,7 +65,7 @@ public class CourierController {
      */
     @Operation(summary = "Завершить доставку заказа")
     @PostMapping("/complete/{orderId}")
-    public void completeDelivery(@PathVariable Long orderId) {
+    public void completeDelivery(@PathVariable UUID orderId) {
         log.info("Received POST request to complete delivery");
         courierService.completeDelivery(orderId);
     }
