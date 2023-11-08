@@ -8,7 +8,8 @@ import ru.liga.model.Order;
 @Mapper(componentModel = "spring")
 public interface DeliveryOrderMapper {
     @Mapping(target = "id", source = "entity.id")
-    @Mapping(target = "secretPaymentUrl", constant = "testUrl")
+    @Mapping(target = "secretPaymentUrl", expression = "java(entity.getId() + \"paymentUrl\")")
     @Mapping(target = "estimatedTimeOfArrival", source = "entity.timestamp")
     DeliveryOrderDto toDto(Order entity);
+
 }

@@ -15,6 +15,7 @@ import ru.liga.mapper.OrderInfoMapper;
 import ru.liga.model.*;
 import ru.liga.repository.*;
 import ru.liga.service.OrderService;
+import ru.liga.service.RabbitService;
 import ru.liga.util.OrderUtil;
 
 import java.math.BigDecimal;
@@ -28,7 +29,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class OrderServiceImpl implements OrderService {
-    private final RabbitServiceImpl rabbitServiceImpl;
+    private final RabbitService rabbitService;
+    private final PaymentService paymentService;
 
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
@@ -75,12 +77,9 @@ public class OrderServiceImpl implements OrderService {
         Order order = getOrderById(orderId);
         OrderUtil.correctStatusOrElseThrow(order.getStatus(), OrderStatus.DELIVERY_DENIED);
 
-        //Some logic for refund
-        Customer customer = order.getCustomer();
-        log.info("Money for order id={} was return to customer id={}", orderId, customer.getId());
+        paymentService.refundOfFunds(orderId);
     }
 
-    //TODO: refactor method
     @Override
     @Transactional
     public DeliveryOrderDto addOrder(Long customerId, NewOrderDto newOrder) {
@@ -127,8 +126,11 @@ public class OrderServiceImpl implements OrderService {
     public void payForOrder(UUID orderId, String paymentUrl) {
         Order order = getOrderById(orderId);
         OrderUtil.correctStatusOrElseThrow(order.getStatus(), OrderStatus.CUSTOMER_CREATED);
+
+        paymentService.payForOrder(orderId, paymentUrl);
         orderRepository.updateOrderByStatus(orderId, OrderStatus.CUSTOMER_PAID);
         OrderActionDto orderAction = new OrderActionDto(orderId, OrderStatus.CUSTOMER_PAID);
-        rabbitServiceImpl.sendNewOrder(orderAction, "newOrderToNotification");
+
+        rabbitService.sendNewOrder(orderAction, "newOrderToNotification");
     }
 }
