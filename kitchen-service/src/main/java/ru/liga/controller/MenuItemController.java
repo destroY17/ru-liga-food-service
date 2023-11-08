@@ -27,13 +27,14 @@ public class MenuItemController {
 
     /**
      * Найти товары меню дешевле, чем указанная цена
+     *
      * @param restaurantId идентификатор заказа
      * @param price цена, ниже которой будет стоимость найденных товаров
      * @return список товаров меню
      */
     @Operation(summary = "Найти все дешевле заданной цены")
-    @GetMapping("/{restaurantId}")
-    public List<RestaurantMenuItem> findAllCheaperPrice(@PathVariable Long restaurantId,
+    @GetMapping("/filters/price/less")
+    public List<RestaurantMenuItem> findAllCheaperPrice(@RequestParam Long restaurantId,
                                                         @RequestParam @Positive BigDecimal price) {
         log.info("Received GET request to find menu items price<{} in restaurant id={}", price, restaurantId);
         return menuItemService.findAllCheaperPrice(restaurantId, price);
@@ -41,6 +42,7 @@ public class MenuItemController {
 
     /**
      * Добавить новый товар в меню ресторана
+     *
      * @param menuItem сведения о новом товаре
      * @return полная информация о новом товаре в меню
      */
@@ -53,15 +55,16 @@ public class MenuItemController {
 
     /**
      * Изменение цены товара меню
+     *
      * @param id идентификатор товара
      * @param price новая цена для товара
      * @return товар меню с измененной ценой
      */
     @Operation(summary = "Изменить цену")
-    @PatchMapping("/{id}/change-price")
+    @PatchMapping("/change-price/{id}")
     public RestaurantMenuItem changePrice(@PathVariable Long id,
                                           @RequestParam @Positive BigDecimal price) {
         log.info("Received PATCH request to change price from menu item with id={} to price={}", id, price);
-        return menuItemService.changePrice(menuItemService.findMenuItemById(id), price);
+        return menuItemService.changePrice(id, price);
     }
 }

@@ -1,4 +1,4 @@
-package ru.liga.service;
+package ru.liga.unit.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,19 +12,18 @@ import ru.liga.dto.*;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapper.OrderInfoMapper;
 import ru.liga.model.*;
-import ru.liga.repository.OrderRepository;
+import ru.liga.repository.*;
 import ru.liga.service.impl.OrderServiceImpl;
 
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class OrderServiceUnitTest {
+public class OrderServiceTest {
+
     @Mock
     private OrderRepository orderRepository;
 

@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.liga.client.KitchenClient;
 import ru.liga.dto.OrderActionDto;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.model.Order;
 import ru.liga.model.OrderStatus;
+import ru.liga.queue.KitchenQueue;
 import ru.liga.repository.OrderRepository;
 import ru.liga.service.KitchenService;
 import ru.liga.util.OrderUtil;
@@ -22,28 +22,25 @@ import java.util.UUID;
 public class KitchenServiceImpl implements KitchenService {
     private final RabbitService rabbitService;
     private final OrderRepository orderRepository;
-    private final KitchenClient kitchenClient;
 
     @Override
     public void acceptOrder(UUID orderId) {
         correctStatus(orderId, OrderStatus.CUSTOMER_PAID);
 
         OrderActionDto orderAction = new OrderActionDto(orderId, OrderStatus.KITCHEN_ACCEPTED);
-        //kitchenClient.updateOrderStatus(orderAction);
 
         orderRepository.updateOrderByStatus(orderId, orderAction.getStatus());
-        rabbitService.sendOrder(orderAction, "kitchenAcceptToNotification");
+        rabbitService.sendOrder(orderAction, KitchenQueue.KITCHEN_ACCEPT);
     }
 
     @Override
-    public void completeOrder(UUID orderId, String routingKey) {
+    public void completeOrder(UUID orderId) {
         correctStatus(orderId, OrderStatus.KITCHEN_ACCEPTED);
 
         OrderActionDto orderAction = new OrderActionDto(orderId, OrderStatus.KITCHEN_PREPARING);
-        //kitchenClient.updateOrderStatus(orderAction);
         orderRepository.updateOrderByStatus(orderId, orderAction.getStatus());
 
-        rabbitService.sendOrder(orderAction, "kitchenCompleteToNotification");
+        rabbitService.sendOrder(orderAction, KitchenQueue.KITCHEN_COMPLETE);
     }
 
     @Override
@@ -51,9 +48,9 @@ public class KitchenServiceImpl implements KitchenService {
         correctStatus(orderId, OrderStatus.CUSTOMER_PAID);
 
         OrderActionDto orderAction = new OrderActionDto(orderId, OrderStatus.KITCHEN_DENIED);
-        kitchenClient.updateOrderStatus(orderAction);
+        orderRepository.updateOrderByStatus(orderId, orderAction.getStatus());
 
-        rabbitService.sendOrder(orderAction, "kitchenDeniedToNotification");
+        rabbitService.sendOrder(orderAction, KitchenQueue.KITCHEN_DENIED);
     }
 
     private void correctStatus(UUID orderId, OrderStatus correctStatus) {

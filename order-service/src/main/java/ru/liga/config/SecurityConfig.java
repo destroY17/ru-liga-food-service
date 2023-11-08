@@ -9,10 +9,9 @@ import org.springframework.security.web.SecurityFilterChain;
  * OAuth конфигурация.
  */
 @EnableWebSecurity
-public class OAuth2ResourceServerSecurityConfiguration {
+public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        final String customerRole = "CUSTOMER";
 
         http
                 .csrf().disable()

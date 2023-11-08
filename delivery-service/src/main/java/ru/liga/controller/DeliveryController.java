@@ -26,6 +26,7 @@ public class DeliveryController {
 
     /**
      * Поиск доступных для доставки заказов
+     *
      * @param pageable настройка страниц
      * @return список заказов с пагинацией
      */
@@ -38,6 +39,7 @@ public class DeliveryController {
 
     /**
      * Собрать заказ для подготовки к доставке
+     *
      * @param orderId идентификатор заказа
      */
     @Operation(summary = "Собрать заказ")

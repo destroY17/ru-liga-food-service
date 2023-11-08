@@ -50,6 +50,6 @@ public class KitchenController {
     @PostMapping("/complete/{orderId}")
     public void completeOrder(@PathVariable UUID orderId) {
         log.info("Received POST request to complete order id={}", orderId);
-        kitchenService.completeOrder(orderId, "kitchenToNotification");
+        kitchenService.completeOrder(orderId);
     }
 }

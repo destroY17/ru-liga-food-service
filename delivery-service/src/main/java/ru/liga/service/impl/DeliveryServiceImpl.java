@@ -7,7 +7,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.liga.client.DeliveryClient;
 import ru.liga.dto.DeliveryDto;
 import ru.liga.exception.DataNotFoundException;
 import ru.liga.mapper.DeliveryToOrderMapper;
@@ -26,7 +25,6 @@ import java.util.UUID;
 public class DeliveryServiceImpl implements DeliveryService {
     private final OrderRepository orderRepository;
     private final DeliveryToOrderMapper deliveryToOrderMapper;
-    private final DeliveryClient deliveryClient;
 
     @Override
     public Page<DeliveryDto> findAvailableDeliveries(Pageable pageable) {
@@ -42,8 +40,6 @@ public class DeliveryServiceImpl implements DeliveryService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new DataNotFoundException("Order id=" + orderId + "not found"));
         OrderUtil.correctStatusOrElseThrow(order.getStatus(), OrderStatus.DELIVERY_PENDING);
-
-        // deliveryClient.updateOrderStatus(new OrderActionDto(orderId, OrderStatus.DELIVERY_PICKING));
         orderRepository.updateOrderByStatus(orderId, OrderStatus.DELIVERY_PICKING);
     }
 }

@@ -30,7 +30,8 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     @Override
-    public RestaurantMenuItem changePrice(RestaurantMenuItem menuItem, BigDecimal price) {
+    public RestaurantMenuItem changePrice(Long menuItemId, BigDecimal price) {
+        RestaurantMenuItem menuItem = findMenuItemById(menuItemId);
         menuItem.setPrice(price);
         return menuItemRepository.save(menuItem);
     }

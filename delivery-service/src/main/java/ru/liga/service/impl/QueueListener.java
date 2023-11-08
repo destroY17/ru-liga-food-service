@@ -6,7 +6,6 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.liga.client.DeliveryClient;
 import ru.liga.dto.OrderActionDto;
 import ru.liga.model.*;
 import ru.liga.queue.DeliveryQueue;
@@ -19,7 +18,6 @@ import ru.liga.service.RabbitService;
 @RequiredArgsConstructor
 @Slf4j
 public class QueueListener {
-    private final DeliveryClient deliveryClient;
     private final RabbitService rabbitService;
     private final OrderRepository orderRepository;
 
@@ -29,7 +27,6 @@ public class QueueListener {
         orderAction.setStatus(OrderStatus.DELIVERY_PENDING);
         log.info("Order id={} has arrived to delivery", orderAction.getOrderId());
 
-        //deliveryClient.updateOrderStatus(orderAction);
         orderRepository.updateOrderByStatus(orderAction.getOrderId(), orderAction.getStatus());
         rabbitService.sendDeliveryInfo(orderAction.getOrderId(), DeliveryQueue.NOTIFY_COURIERS);
     }

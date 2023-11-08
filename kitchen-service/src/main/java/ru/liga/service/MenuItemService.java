@@ -11,7 +11,7 @@ public interface MenuItemService {
 
     RestaurantMenuItem findMenuItemById(Long id);
 
-    RestaurantMenuItem changePrice(RestaurantMenuItem menuItemById, BigDecimal price);
-
     List<RestaurantMenuItem> findAllCheaperPrice(Long restaurantId, BigDecimal price);
+
+    RestaurantMenuItem changePrice(Long menuItemId, BigDecimal price);
 }

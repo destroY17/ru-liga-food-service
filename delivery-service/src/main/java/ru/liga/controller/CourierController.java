@@ -25,6 +25,7 @@ public class CourierController {
 
     /**
      * Найти всех курьеров
+     *
      * @return список курьеров
      */
     @Operation(summary = "Найти всех курьеров")
@@ -36,6 +37,7 @@ public class CourierController {
 
     /**
      * Найти курьера по идентификатору
+     *
      * @param id идентификатор курьера
      * @return курьер
      */
@@ -48,12 +50,13 @@ public class CourierController {
 
     /**
      * Принятие курьером заказа для доставки
+     *
      * @param courierId идентификатор курьера
      * @param orderId идентификатор заказа
      * @return сведения о заказе, необходимые курьеру
      */
     @Operation(summary = "Принять заказ")
-    @PostMapping("{courierId}/take/{orderId}")
+    @PostMapping("{courierId}/take-order/{orderId}")
     public DeliveryDto takeOrder(@PathVariable Long courierId, @PathVariable UUID orderId) {
         log.info("Received POST request to take order");
         return courierService.takeOrder(courierId, orderId);
@@ -61,10 +64,11 @@ public class CourierController {
 
     /**
      * Завершение доставки заказа
+     *
      * @param orderId идентификатор заказа
      */
     @Operation(summary = "Завершить доставку заказа")
-    @PostMapping("/complete/{orderId}")
+    @PostMapping("/complete-delivery/{orderId}")
     public void completeDelivery(@PathVariable UUID orderId) {
         log.info("Received POST request to complete delivery");
         courierService.completeDelivery(orderId);
