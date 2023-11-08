@@ -22,7 +22,13 @@ public class QueueListener {
             orderService.refundOfFunds(orderAction.getOrderId());
         }
 
-        log.info("Order id={} status{} info received", orderAction.getOrderId(),
+        log.info("Order id={} status={} info received", orderAction.getOrderId(),
+                orderAction.getStatus());
+    }
+
+    @RabbitListener(queues = "deliveryToOrder")
+    public void handleInfoFromDelivery(OrderActionDto orderAction) {
+        log.info("Order id={} status={} info received", orderAction.getOrderId(),
                 orderAction.getStatus());
     }
 }

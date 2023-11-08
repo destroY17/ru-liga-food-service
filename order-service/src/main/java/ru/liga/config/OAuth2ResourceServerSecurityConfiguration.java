@@ -10,9 +10,10 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @EnableWebSecurity
 public class OAuth2ResourceServerSecurityConfiguration {
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        final String customerRole = "CUSTOMER";
+
         http
                 .csrf().disable()
                 .mvcMatcher("/**")

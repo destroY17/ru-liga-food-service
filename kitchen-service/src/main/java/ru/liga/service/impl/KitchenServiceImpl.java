@@ -27,8 +27,9 @@ public class KitchenServiceImpl implements KitchenService {
         correctStatus(orderId, OrderStatus.CUSTOMER_PAID);
 
         OrderActionDto orderAction = new OrderActionDto(orderId, OrderStatus.KITCHEN_ACCEPTED);
-        kitchenClient.updateOrderStatus(orderAction);
+        //kitchenClient.updateOrderStatus(orderAction);
 
+        orderRepository.updateOrderByStatus(orderId, orderAction.getStatus());
         rabbitService.sendOrder(orderAction, "kitchenAcceptToNotification");
     }
 
@@ -37,7 +38,8 @@ public class KitchenServiceImpl implements KitchenService {
         correctStatus(orderId, OrderStatus.KITCHEN_ACCEPTED);
 
         OrderActionDto orderAction = new OrderActionDto(orderId, OrderStatus.KITCHEN_PREPARING);
-        kitchenClient.updateOrderStatus(orderAction);
+        //kitchenClient.updateOrderStatus(orderAction);
+        orderRepository.updateOrderByStatus(orderId, orderAction.getStatus());
 
         rabbitService.sendOrder(orderAction, "kitchenCompleteToNotification");
     }

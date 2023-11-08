@@ -37,15 +37,15 @@ public class OrderServiceUnitTest {
     public void testFindAllOrders() {
         Pageable pageable = Pageable.unpaged();
         Page<Order> mockPage = new PageImpl<>(List.of(new Order(), new Order()));
-        List<OrderInfoDto> orderInfoDtos = Arrays.asList(
-                OrderInfoDto.builder().build(),
-                OrderInfoDto.builder().build()
+        List<OrderInfo> orderInfos = Arrays.asList(
+                OrderInfo.builder().build(),
+                OrderInfo.builder().build()
         );
 
         when(orderRepository.findAll(pageable)).thenReturn(mockPage);
-        when(orderInfoMapper.toDto(anyList())).thenReturn(orderInfoDtos);
+        when(orderInfoMapper.toDto(anyList())).thenReturn(orderInfos);
 
-        Page<OrderInfoDto> result = orderService.findAllOrders(pageable);
+        Page<OrderInfo> result = orderService.findAllOrders(pageable);
 
         assertEquals(mockPage.getTotalElements(), result.getTotalElements());
         assertEquals(2, result.getContent().size());
@@ -56,15 +56,15 @@ public class OrderServiceUnitTest {
         Pageable pageable = Pageable.unpaged();
         OrderStatus status = OrderStatus.CUSTOMER_CREATED;
         Page<Order> mockPage = new PageImpl<>(List.of(new Order(), new Order()));
-        List<OrderInfoDto> orderInfoDtos = Arrays.asList(
-                OrderInfoDto.builder().build(),
-                OrderInfoDto.builder().build()
+        List<OrderInfo> orderInfos = Arrays.asList(
+                OrderInfo.builder().build(),
+                OrderInfo.builder().build()
         );
 
         when(orderRepository.findOrdersByStatus(pageable, status)).thenReturn(mockPage);
-        when(orderInfoMapper.toDto(anyList())).thenReturn(orderInfoDtos);
+        when(orderInfoMapper.toDto(anyList())).thenReturn(orderInfos);
 
-        Page<OrderInfoDto> result = orderService.findOrdersByStatus(pageable, status);
+        Page<OrderInfo> result = orderService.findOrdersByStatus(pageable, status);
 
         assertEquals(mockPage.getTotalElements(), result.getTotalElements());
         assertEquals(2, result.getContent().size());
@@ -74,14 +74,14 @@ public class OrderServiceUnitTest {
     public void testFindOrderById() {
         Long orderId = 1L;
         Order order = Order.builder().build();
-        OrderInfoDto orderInfoDto = OrderInfoDto.builder().build();
+        OrderInfo orderInfo = OrderInfo.builder().build();
 
         when(orderRepository.findById(orderId)).thenReturn(java.util.Optional.of(order));
-        when(orderInfoMapper.toDto(order)).thenReturn(orderInfoDto);
+        when(orderInfoMapper.toDto(order)).thenReturn(orderInfo);
 
-        OrderInfoDto result = orderService.findOrderById(orderId);
+        OrderInfo result = orderService.findOrderById(orderId);
 
-        assertEquals(orderInfoDto, result);
+        assertEquals(orderInfo, result);
     }
 
     @Test

@@ -1,9 +1,9 @@
-package ru.liga.service.impl;
+package ru.liga.util;
 
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import lombok.experimental.UtilityClass;
 
-@Service
+@UtilityClass
 public class DistanceCalculator {
     @AllArgsConstructor
     static class Coordinates {

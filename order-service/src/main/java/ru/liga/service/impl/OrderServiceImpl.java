@@ -13,10 +13,7 @@ import ru.liga.mapper.DeliveryOrderMapper;
 import ru.liga.mapper.OrderInfoMapper;
 
 import ru.liga.model.*;
-import ru.liga.repository.CustomerRepository;
-import ru.liga.repository.MenuItemRepository;
-import ru.liga.repository.OrderRepository;
-import ru.liga.repository.RestaurantRepository;
+import ru.liga.repository.*;
 import ru.liga.service.OrderService;
 import ru.liga.util.OrderUtil;
 
@@ -33,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
     private final RabbitServiceImpl rabbitServiceImpl;
 
     private final OrderRepository orderRepository;
+    private final OrderItemRepository orderItemRepository;
     private final CustomerRepository customerRepository;
     private final RestaurantRepository restaurantRepository;
     private final MenuItemRepository menuItemRepository;
@@ -41,21 +39,21 @@ public class OrderServiceImpl implements OrderService {
     private final DeliveryOrderMapper deliveryOrderMapper;
 
     @Override
-    public Page<OrderInfoDto> findAllOrders(Pageable pageable) {
+    public Page<OrderInfo> findAllOrders(Pageable pageable) {
         Page<Order> allOrders = orderRepository.findAll(pageable);
         return new PageImpl<>(orderInfoMapper.toDto(allOrders.getContent()),
                 pageable, allOrders.getTotalElements());
     }
 
     @Override
-    public Page<OrderInfoDto> findOrdersByStatus(Pageable pageable, OrderStatus status) {
+    public Page<OrderInfo> findOrdersByStatus(Pageable pageable, OrderStatus status) {
         Page<Order> ordersByStatus = orderRepository.findOrdersByStatus(pageable, status);
         return new PageImpl<>(orderInfoMapper.toDto(ordersByStatus.getContent()),
                 pageable, ordersByStatus.getTotalElements());
     }
 
     @Override
-    public OrderInfoDto findOrderById(Long id) {
+    public OrderInfo findOrderById(Long id) {
         Order order = getOrderById(id);
         return orderInfoMapper.toDto(order);
     }
@@ -93,6 +91,14 @@ public class OrderServiceImpl implements OrderService {
                         new DataNotFoundException(String.format("Restaurant id=%d not found",
                                 newOrder.getRestaurantId())));
 
+        Order order = Order.builder()
+                .customer(customer)
+                .restaurant(restaurant)
+                .status(OrderStatus.CUSTOMER_CREATED)
+                .timestamp(Timestamp.valueOf(LocalDateTime.now()))
+                .build();
+        orderRepository.save(order);
+
         List<OrderItemDto> menuItems = newOrder.getMenuItems();
         List<OrderItem> orderItems = new ArrayList<>();
 
@@ -104,22 +110,16 @@ public class OrderServiceImpl implements OrderService {
                                             menuItem.getMenuItemId())));
 
             orderItems.add(OrderItem.builder()
+                    .order(order)
                     .restaurantMenuItem(restaurantMenuItem)
                     .quantity(menuItem.getQuantity())
                     .price(restaurantMenuItem.getPrice().multiply(BigDecimal.valueOf(menuItem.getQuantity())))
                     .build()
             );
         }
+        orderItemRepository.saveAll(orderItems);
 
-        Order order = Order.builder()
-                .customer(customer)
-                .restaurant(restaurant)
-                .status(OrderStatus.CUSTOMER_CREATED)
-                .timestamp(Timestamp.valueOf(LocalDateTime.now()))
-                .orderItems(orderItems)
-                .build();
-
-        return deliveryOrderMapper.toDto(orderRepository.save(order));
+        return deliveryOrderMapper.toDto(order);
     }
 
     @Override

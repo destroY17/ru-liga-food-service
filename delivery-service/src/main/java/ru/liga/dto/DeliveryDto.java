@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@Schema(name = "Сведения о заказе для доставки")
+@Schema(name = "Сведения о заказе для курьера")
 public class DeliveryDto {
     private Long orderId;
     private RestaurantDeliveryDto restaurant;

@@ -1,7 +1,6 @@
 server:
   port: 8082
   forward-headers-strategy: framework
-
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -22,3 +21,8 @@ springdoc:
     oauth:
       client-id: gateway
       client-secret: secret
+
+feign:
+  oauth2:
+    enabled: true
+    clientRegistrationId: keycloak

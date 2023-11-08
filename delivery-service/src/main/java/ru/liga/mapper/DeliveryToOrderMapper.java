@@ -17,18 +17,21 @@ public class DeliveryToOrderMapper {
     private final CustomerMapper customerMapper;
 
     public DeliveryDto toDto(Order entity) {
-        double payment = 0;
-
-        for (OrderItem item : entity.getOrderItems()) {
-            payment += item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())).doubleValue();
-        }
-
         return new DeliveryDto(
                 entity.getId(),
-                restaurantDeliveryMapper.toDto(entity.getRestaurant()),
-                customerMapper.toDto(entity.getCustomer()),
-                payment
+                restaurantDeliveryMapper.toDto(entity.getRestaurant(), entity.getCourier()),
+                customerMapper.toDto(entity.getCustomer(), entity.getCourier()),
+                calculatePayment(entity.getOrderItems())
         );
+    }
+
+    private double calculatePayment(List<OrderItem> orderItems) {
+        double payment = 0;
+
+        for (OrderItem item : orderItems) {
+            payment += item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())).doubleValue();
+        }
+        return payment;
     }
 
     public List<DeliveryDto> toDto(List<Order> entities) {

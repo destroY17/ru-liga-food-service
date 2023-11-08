@@ -7,27 +7,26 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static ru.liga.queue.NotifyQueue.*;
+
 @Configuration
 public class RoutingConfiguration {
     @Bean
     public Declarables newOrderToKitchenQueue() {
-        String orderToKitchenQueue = "newOrderToKitchen";
-        String kitchenToOrderQueue = "kitchenToOrder";
-        String orderToDeliveryQueue = "orderToDelivery";
-
-        Queue newOrderToKitchen = new Queue(orderToKitchenQueue, false);
-        Queue kitchenToOrder = new Queue(kitchenToOrderQueue, false);
-        Queue orderToDelivery = new Queue(orderToDeliveryQueue, false);
+        Queue newOrderToKitchen = new Queue(ORDER_SERVICE_TO_KITCHEN, false);
+        Queue kitchenToOrder = new Queue(KITCHEN_TO_ORDER_SERVICE, false);
+        Queue orderToDelivery = new Queue(ORDER_SERVICE_TO_KITCHEN, false);
+        Queue deliveryToOrder = new Queue(DELIVERY_TO_ORDER, false);
 
         DirectExchange directExchange = new DirectExchange("directExchange");
 
-        return new Declarables(newOrderToKitchen,
-                kitchenToOrder,
-                orderToDelivery,
+        return new Declarables(
+                newOrderToKitchen, kitchenToOrder, orderToDelivery, deliveryToOrder,
                 directExchange,
-                BindingBuilder.bind(newOrderToKitchen).to(directExchange).with(orderToDeliveryQueue),
-                BindingBuilder.bind(kitchenToOrder).to(directExchange).with(kitchenToOrderQueue),
-                BindingBuilder.bind(orderToDelivery).to(directExchange).with(orderToDeliveryQueue)
+                BindingBuilder.bind(newOrderToKitchen).to(directExchange).with(ORDER_SERVICE_TO_KITCHEN),
+                BindingBuilder.bind(kitchenToOrder).to(directExchange).with(KITCHEN_TO_ORDER_SERVICE),
+                BindingBuilder.bind(orderToDelivery).to(directExchange).with(ORDER_SERVICE_TO_KITCHEN),
+                BindingBuilder.bind(deliveryToOrder).to(directExchange).with(DELIVERY_TO_ORDER)
         );
     }
 }
